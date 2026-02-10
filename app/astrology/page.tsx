@@ -1,0 +1,195 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { ArticleLayout } from '@/components/article-layout'
+
+const signs = [
+  { symbol: '\u2648', name: '\u041E\u0412\u0415\u041D', horoscopes: ['\u0421\u0435\u0433\u043E\u0434\u043D\u044F \u0443\u0434\u0430\u0447\u0430 \u0432 \u0437\u043D\u0430\u043A\u043E\u043C\u0441\u0442\u0432\u0430\u0445! \u0410\u0437\u0438\u0430\u0442\u043A\u0438 \u0431\u0443\u0434\u0443\u0442 \u043E\u0441\u043E\u0431\u0435\u043D\u043D\u043E \u0431\u043B\u0430\u0433\u043E\u0441\u043A\u043B\u043E\u043D\u043D\u044B. \u0417\u0432\u0451\u0437\u0434\u044B \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E\u0442 \u0441\u0445\u043E\u0434\u0438\u0442\u044C \u0432 \u043A\u043E\u0440\u0435\u0439\u0441\u043A\u0438\u0439 \u0440\u0435\u0441\u0442\u043E\u0440\u0430\u043D. \u041D\u0435 \u0437\u0430\u0431\u0443\u0434\u044C\u0442\u0435 \u043F\u0430\u043B\u043E\u0447\u043A\u0438 \u2014 \u0432\u0438\u043B\u043A\u043E\u0439 \u0435\u0441\u0442\u044C \u0441\u0443\u0448\u0438 \u043D\u0435\u043B\u044C\u0437\u044F!', '\u041C\u0430\u0440\u0441 \u0432 \u0432\u0430\u0448\u0435\u043C \u0437\u043D\u0430\u043A\u0435 \u0434\u0430\u0451\u0442 \u043D\u0435\u0432\u0435\u0440\u043E\u044F\u0442\u043D\u0443\u044E \u044D\u043D\u0435\u0440\u0433\u0438\u044E. \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u0435\u0451, \u0447\u0442\u043E\u0431\u044B \u043D\u0430\u043A\u043E\u043D\u0435\u0446 \u0434\u043E\u0435\u0441\u0442\u044C \u0445\u0438\u043D\u043A\u0430\u043B\u0438. \u041E\u0441\u0442\u043E\u0440\u043E\u0436\u043D\u043E \u0441 \u043E\u0441\u0442\u0440\u044B\u043C \u0441\u043E\u0443\u0441\u043E\u043C!'] },
+  { symbol: '\u2649', name: '\u0422\u0415\u041B\u0415\u0426', horoscopes: ['\u0425\u043E\u0440\u043E\u0448\u0438\u0439 \u0434\u0435\u043D\u044C \u0434\u043B\u044F \u0445\u0438\u043D\u043A\u0430\u043B\u0438, \u043D\u043E \u0431\u0435\u0440\u0435\u0433\u0438\u0442\u0435 \u0436\u0435\u043B\u0443\u0434\u043E\u043A. \u0412\u0435\u043D\u0435\u0440\u0430 \u0432 \u043E\u043F\u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u043A \u0432\u0430\u0448\u0435\u043C\u0443 \u0445\u043E\u043B\u043E\u0434\u0438\u043B\u044C\u043D\u0438\u043A\u0443. \u041D\u0435 \u0435\u0448\u044C\u0442\u0435 \u043F\u043E\u0441\u043B\u0435 \u043F\u043E\u043B\u0443\u043D\u043E\u0447\u0438 \u2014 \u0437\u0432\u0451\u0437\u0434\u044B \u043F\u0440\u043E\u0442\u0438\u0432!', '\u0424\u0438\u043D\u0430\u043D\u0441\u043E\u0432\u044B\u0439 \u043F\u0440\u043E\u0440\u044B\u0432! \u041D\u043E \u043D\u0435 \u0442\u0440\u0430\u0442\u044C\u0442\u0435 \u0432\u0441\u0451 \u043D\u0430 \u0445\u0438\u043D\u043A\u0430\u043B\u044C\u043D\u0443\u044E. \u0417\u0432\u0451\u0437\u0434\u044B \u0441\u043E\u0432\u0435\u0442\u0443\u044E\u0442 \u043E\u0442\u043B\u043E\u0436\u0438\u0442\u044C \u0445\u043E\u0442\u044F \u0431\u044B 5 \u0435\u0432\u0440\u043E \u043D\u0430 \u0447\u0451\u0440\u043D\u044B\u0439 \u0434\u0435\u043D\u044C.'] },
+  { symbol: '\u264A', name: '\u0411\u041B\u0418\u0417\u041D\u0415\u0426\u042B', horoscopes: ['\u0412\u0435\u0440\u043A\u0430 \u0421\u0435\u0440\u0434\u0443\u0447\u043A\u0430 \u043E\u0434\u043E\u0431\u0440\u044F\u0435\u0442 \u0432\u0430\u0448\u0438 \u043F\u043B\u0430\u043D\u044B! \u0421\u0435\u0433\u043E\u0434\u043D\u044F \u043C\u043E\u0436\u043D\u043E \u0432\u0441\u0451 \u2014 \u043E\u0441\u043E\u0431\u0435\u043D\u043D\u043E \u0442\u0430\u043D\u0446\u0435\u0432\u0430\u0442\u044C \u043D\u0430 \u0441\u0442\u043E\u043B\u0435. \u041C\u0435\u0440\u043A\u0443\u0440\u0438\u0439 \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442 \u043A\u0430\u0440\u0430\u043E\u043A\u0435.', '\u0414\u0432\u043E\u0439\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0441\u0442\u044C \u0437\u0430\u0448\u043A\u0430\u043B\u0438\u0432\u0430\u0435\u0442: \u0445\u043E\u0442\u0438\u0442\u0435 \u0438 \u0445\u0438\u043D\u043A\u0430\u043B\u0438, \u0438 \u0431\u0430\u0440\u0431\u0435\u043A\u044E. \u0412\u043E\u0437\u044C\u043C\u0438\u0442\u0435 \u043E\u0431\u0430 \u2014 \u0437\u0432\u0451\u0437\u0434\u044B \u043D\u0435 \u043E\u0441\u0443\u0434\u044F\u0442.'] },
+  { symbol: '\u264B', name: '\u0420\u0410\u041A', horoscopes: ['\u041B\u0443\u043D\u0430 \u0432\u043B\u0438\u044F\u0435\u0442 \u043D\u0430 \u0432\u0430\u0448 \u0430\u043F\u043F\u0435\u0442\u0438\u0442. \u0421\u0435\u0433\u043E\u0434\u043D\u044F \u043B\u0443\u0447\u0448\u0435 \u043E\u0441\u0442\u0430\u0442\u044C\u0441\u044F \u0434\u043E\u043C\u0430 \u0438 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043A-\u0434\u0440\u0430\u043C\u0443. \u0417\u0430\u043A\u0430\u0436\u0438\u0442\u0435 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0443 \u0438\u0437 \u0445\u0438\u043D\u043A\u0430\u043B\u044C\u043D\u043E\u0439 \u2014 \u0432\u044B \u0437\u0430\u0441\u043B\u0443\u0436\u0438\u043B\u0438!', '\u042D\u043C\u043E\u0446\u0438\u0438 \u043D\u0430 \u043F\u0440\u0435\u0434\u0435\u043B\u0435. \u041D\u0435 \u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438 \u0432 \u0433\u043E\u0441\u0442\u0435\u0432\u043E\u0439 \u043A\u043D\u0438\u0433\u0435, \u044D\u0442\u043E \u043D\u0435 \u043F\u043E\u043C\u043E\u0436\u0435\u0442.'] },
+  { symbol: '\u264C', name: '\u041B\u0415\u0412', horoscopes: ['\u0412\u0430\u0448\u0430 \u0445\u0430\u0440\u0438\u0437\u043C\u0430 \u043D\u0430 \u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C\u0435! \u0418\u0434\u0435\u0430\u043B\u044C\u043D\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u0441\u0442\u0430\u0442\u044C \u0430\u043D\u0438\u043C\u0430\u0442\u043E\u0440\u043E\u043C \u043D\u0430 \u043A\u043E\u0440\u043F\u043E\u0440\u0430\u0442\u0438\u0432\u0435, \u043A\u0430\u043A \u0414\u0430\u0432\u0438\u0434. \u041D\u0430\u0434\u0435\u043D\u044C\u0442\u0435 \u043A\u043E\u0441\u0442\u044E\u043C \u0442\u0438\u0433\u0440\u0430!', '\u0421\u043E\u043B\u043D\u0446\u0435 \u0432 \u0432\u0430\u0448\u0435\u043C \u0437\u043D\u0430\u043A\u0435 \u0434\u0430\u0451\u0442 \u043A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u043A\u0443\u044E \u0443\u0432\u0435\u0440\u0435\u043D\u043D\u043E\u0441\u0442\u044C. \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u044D\u0442\u043E, \u0447\u0442\u043E\u0431\u044B \u0437\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u0434\u0432\u043E\u0439\u043D\u0443\u044E \u043F\u043E\u0440\u0446\u0438\u044E.'] },
+  { symbol: '\u264D', name: '\u0414\u0415\u0412\u0410', horoscopes: ['\u0421\u0435\u0433\u043E\u0434\u043D\u044F \u0438\u0434\u0435\u0430\u043B\u044C\u043D\u044B\u0439 \u0434\u0435\u043D\u044C \u0434\u043B\u044F \u0443\u0431\u043E\u0440\u043A\u0438 \u0438 \u0434\u0438\u0435\u0442\u044B. \u041D\u043E \u0437\u0432\u0451\u0437\u0434\u044B \u0440\u0430\u0437\u0440\u0435\u0448\u0430\u044E\u0442 \u043E\u0434\u043D\u0443 \u0445\u0438\u043D\u043A\u0430\u043B\u0438\u043D\u0443. \u041E\u0434\u043D\u0443! \u041D\u0435 \u0434\u0435\u0441\u044F\u0442\u044C. \u041C\u0435\u0440\u043A\u0443\u0440\u0438\u0439 \u0441\u043B\u0435\u0434\u0438\u0442.', '\u0421\u043E\u0440\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u043C\u0443\u0441\u043E\u0440, \u043F\u043E\u0442\u043E\u043C \u0441\u043E\u0440\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u043C\u044B\u0441\u043B\u0438. \u0417\u0432\u0451\u0437\u0434\u044B \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E\u0442 Excel-\u0442\u0430\u0431\u043B\u0438\u0446\u0443 \u0434\u043B\u044F \u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F \u043E\u0431\u0435\u0434\u043E\u0432.'] },
+  { symbol: '\u264E', name: '\u0412\u0415\u0421\u042B', horoscopes: ['\u0411\u0430\u043B\u0430\u043D\u0441 \u0432 \u043F\u0438\u0442\u0430\u043D\u0438\u0438: \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u0430 \u0445\u0438\u043D\u043A\u0430\u043B\u0438, \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u0430 \u0441\u0430\u043B\u0430\u0442. \u0412\u0435\u043D\u0435\u0440\u0430 \u043E\u0434\u043E\u0431\u0440\u044F\u0435\u0442 \u0432\u0430\u0448\u0443 \u044D\u0441\u0442\u0435\u0442\u0438\u043A\u0443. \u0421\u0435\u0433\u043E\u0434\u043D\u044F \u0432\u044B \u043E\u0441\u043E\u0431\u0435\u043D\u043D\u043E \u043A\u0440\u0430\u0441\u0438\u0432\u044B.', '\u041D\u0435 \u043C\u043E\u0436\u0435\u0442\u0435 \u0440\u0435\u0448\u0438\u0442\u044C, \u043A\u0443\u0434\u0430 \u043F\u043E\u0439\u0442\u0438 \u2014 \u0432 \u0445\u0438\u043D\u043A\u0430\u043B\u044C\u043D\u0443\u044E \u0438\u043B\u0438 \u043D\u0430 \u0431\u0430\u0440\u0431\u0435\u043A\u044E? \u041F\u043E\u0434\u0431\u0440\u043E\u0441\u044C\u0442\u0435 \u043C\u043E\u043D\u0435\u0442\u043A\u0443. \u0417\u0432\u0451\u0437\u0434\u044B \u0442\u0430\u043A \u0434\u0435\u043B\u0430\u044E\u0442.'] },
+  { symbol: '\u264F', name: '\u0421\u041A\u041E\u0420\u041F\u0418\u041E\u041D', horoscopes: ['\u0422\u0430\u0439\u043D\u044B \u0440\u0430\u0441\u043A\u0440\u044B\u0432\u0430\u044E\u0442\u0441\u044F! \u041D\u0435 \u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0447\u0443\u0436\u0443\u044E \u043F\u0435\u0440\u0435\u043F\u0438\u0441\u043A\u0443 \u2014 \u0437\u0432\u0451\u0437\u0434\u044B \u043F\u0440\u0435\u0434\u0443\u043F\u0440\u0435\u0436\u0434\u0430\u044E\u0442. \u041B\u0443\u0447\u0448\u0435 \u043F\u043E\u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0441\u0442\u0430\u0442\u044C\u044E \u043F\u0440\u043E \u0430\u0437\u0438\u0430\u0442\u043E\u043A.', '\u0421\u0442\u0440\u0430\u0441\u0442\u044C \u0438 \u0438\u043D\u0442\u0440\u0438\u0433\u0430 \u0432 \u0432\u043E\u0437\u0434\u0443\u0445\u0435. \u041A\u0442\u043E-\u0442\u043E \u0441\u044A\u0435\u043B \u0432\u0430\u0448\u0438 \u0445\u0438\u043D\u043A\u0430\u043B\u0438 \u0438\u0437 \u0445\u043E\u043B\u043E\u0434\u0438\u043B\u044C\u043D\u0438\u043A\u0430. \u0420\u0430\u0441\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u0435 \u043D\u0430\u0447\u0438\u043D\u0430\u0435\u0442\u0441\u044F.'] },
+  { symbol: '\u2650', name: '\u0421\u0422\u0420\u0415\u041B\u0415\u0426', horoscopes: ['\u0421\u0435\u0433\u043E\u0434\u043D\u044F \u0442\u044F\u043D\u0435\u0442 \u043D\u0430 \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F! \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043D\u043E\u0432\u044B\u0439 \u0440\u0435\u0441\u0442\u043E\u0440\u0430\u043D. \u042E\u043F\u0438\u0442\u0435\u0440 \u043E\u0431\u0435\u0449\u0430\u0435\u0442 \u0431\u043E\u043B\u044C\u0448\u0438\u0435 \u043F\u043E\u0440\u0446\u0438\u0438 \u0438 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439 \u0441\u0447\u0451\u0442.', '\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E! \u041D\u043E \u043D\u0435 \u0434\u0430\u043B\u044C\u0448\u0435 \u0445\u0438\u043D\u043A\u0430\u043B\u044C\u043D\u043E\u0439 \u043D\u0430 \u0441\u043E\u0441\u0435\u0434\u043D\u0435\u0439 \u0443\u043B\u0438\u0446\u0435. \u0417\u0432\u0451\u0437\u0434\u044B \u043D\u0435 \u043E\u043F\u043B\u0430\u0447\u0438\u0432\u0430\u044E\u0442 \u0431\u0438\u043B\u0435\u0442\u044B.'] },
+  { symbol: '\u2651', name: '\u041A\u041E\u0417\u0415\u0420\u041E\u0413', horoscopes: ['\u0420\u0430\u0431\u043E\u0442\u0430 \u043F\u0440\u0435\u0432\u044B\u0448\u0435 \u0432\u0441\u0435\u0433\u043E! \u041D\u043E \u0434\u0430\u0436\u0435 \u043A\u043E\u0437\u0435\u0440\u043E\u0433\u0430\u043C \u043D\u0443\u0436\u0435\u043D \u043E\u0431\u0435\u0434. \u0421\u0445\u043E\u0434\u0438\u0442\u0435 \u0432 \u0445\u0438\u043D\u043A\u0430\u043B\u044C\u043D\u0443\u044E \u2014 \u043C\u043E\u0436\u043D\u043E \u0432\u0437\u044F\u0442\u044C \u043D\u043E\u0443\u0442\u0431\u0443\u043A \u0441 \u0441\u043E\u0431\u043E\u0439.', '\u0421\u0430\u0442\u0443\u0440\u043D \u043D\u0430\u043F\u043E\u043C\u0438\u043D\u0430\u0435\u0442: \u0434\u0435\u0434\u043B\u0430\u0439\u043D\u044B \u0432\u0430\u0436\u043D\u0435\u0435 \u0445\u0438\u043D\u043A\u0430\u043B\u0438. \u041D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0435\u043C\u043D\u043E\u0433\u043E.'] },
+  { symbol: '\u2652', name: '\u0412\u041E\u0414\u041E\u041B\u0415\u0419', horoscopes: ['\u0423\u0440\u0430\u043D \u043F\u0440\u0438\u043D\u043E\u0441\u0438\u0442 \u043D\u0435\u043E\u0436\u0438\u0434\u0430\u043D\u043D\u043E\u0441\u0442\u0438! \u0412\u043E\u0437\u043C\u043E\u0436\u043D\u043E, \u0432\u044B \u0432\u0441\u0442\u0440\u0435\u0442\u0438\u0442\u0435 \u0412\u0435\u0440\u043A\u0443 \u0421\u0435\u0440\u0434\u0443\u0447\u043A\u0443 \u0432 \u043C\u0435\u0442\u0440\u043E. \u041D\u0435 \u043F\u0443\u0433\u0430\u0439\u0442\u0435\u0441\u044C \u2014 \u044D\u0442\u043E \u043A \u0443\u0434\u0430\u0447\u0435!', '\u0418\u043D\u043D\u043E\u0432\u0430\u0446\u0438\u0438 \u0432 \u043A\u0443\u043B\u0438\u043D\u0430\u0440\u0438\u0438: \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0445\u0438\u043D\u043A\u0430\u043B\u0438 \u0441 \u0441\u044B\u0440\u043E\u043C. \u0417\u0432\u0451\u0437\u0434\u044B \u043D\u0435 \u043E\u0441\u0443\u0436\u0434\u0430\u044E\u0442 \u044D\u043A\u0441\u043F\u0435\u0440\u0438\u043C\u0435\u043D\u0442\u044B.'] },
+  { symbol: '\u2653', name: '\u0420\u042B\u0411\u042B', horoscopes: ['\u0418\u043D\u0442\u0443\u0438\u0446\u0438\u044F \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442: \u0441\u0435\u0433\u043E\u0434\u043D\u044F \u043B\u0443\u0447\u0448\u0435 \u043E\u0441\u0442\u0430\u0442\u044C\u0441\u044F \u0434\u043E\u043C\u0430. \u041D\u043E \u0435\u0441\u043B\u0438 \u043F\u043E\u0439\u0434\u0451\u0442\u0435 \u2014 \u0432\u043E\u0437\u044C\u043C\u0438\u0442\u0435 \u0437\u043E\u043D\u0442\u0438\u043A. \u0418 \u0445\u0438\u043D\u043A\u0430\u043B\u0438 \u0441 \u0441\u043E\u0431\u043E\u0439.', '\u041D\u0435\u043F\u0442\u0443\u043D \u0434\u0430\u0440\u0438\u0442 \u0434\u0440\u0435\u043C\u043E\u0442\u0443. \u041D\u0435 \u0431\u043E\u0440\u0438\u0442\u0435\u0441\u044C \u2014 \u043B\u043E\u0436\u0438\u0442\u0435\u0441\u044C \u0441\u043F\u0430\u0442\u044C. \u0417\u0430\u0432\u0442\u0440\u0430 \u0431\u0443\u0434\u0435\u0442 \u043B\u0443\u0447\u0448\u0435. \u0418\u043B\u0438 \u043D\u0435\u0442.'] },
+]
+
+// Compatibility: 0=bad(red), 1=medium(yellow), 2=good(green)
+const compatibilityMatrix = [
+  [2,1,2,0,2,1,2,0,2,1,2,1], // Aries
+  [1,2,0,2,1,2,0,2,1,2,1,2], // Taurus
+  [2,0,2,1,2,0,2,1,2,0,2,1], // Gemini
+  [0,2,1,2,0,2,1,2,0,2,1,2], // Cancer
+  [2,1,2,0,2,1,2,0,2,1,2,0], // Leo
+  [1,2,0,2,1,2,0,2,1,2,0,2], // Virgo
+  [2,0,2,1,2,0,2,1,2,0,2,1], // Libra
+  [0,2,1,2,0,2,1,2,0,2,1,2], // Scorpio
+  [2,1,2,0,2,1,2,0,2,1,2,0], // Sagittarius
+  [1,2,0,2,1,2,0,2,1,2,0,2], // Capricorn
+  [2,1,2,1,2,0,2,1,2,0,2,1], // Aquarius
+  [1,2,1,2,0,2,1,2,0,2,1,2], // Pisces
+]
+
+const compatColors = ['#ef9a9a', '#fff59d', '#a5d6a7']
+const compatLabels = ['\u2716', '\u223C', '\u2714']
+
+export default function AstrologyPage() {
+  const [horoscopeIndex, setHoroscopeIndex] = useState(0)
+  const [moon, setMoon] = useState<{ phase: string; emoji: string; illumination: number } | null>(null)
+
+  useEffect(() => {
+    fetch('/api/moon')
+      .then(r => r.json())
+      .then(data => setMoon(data))
+      .catch(() => setMoon({ phase: '\u0443\u0431\u044B\u0432\u0430\u044E\u0449\u0430\u044F \u043B\u0443\u043D\u0430', emoji: '\uD83C\uDF16', illumination: 45 }))
+  }, [])
+
+  function handleTomorrow() {
+    setHoroscopeIndex(prev => (prev + 1) % 2)
+  }
+
+  return (
+    <ArticleLayout>
+      <div className="retro-panel">
+        <div className="retro-panel-header" style={{ fontSize: '16px', padding: '8px 12px' }}>
+          {'\u2605 \u0410\u0421\u0422\u0420\u041E\u041B\u041E\u0413\u0418\u0427\u0415\u0421\u041A\u0418\u0419 \u041F\u0420\u041E\u0413\u041D\u041E\u0417 \u041D\u0410 10 \u0424\u0415\u0412\u0420\u0410\u041B\u042F 2026 \u2605'}
+        </div>
+        <div style={{ padding: '12px' }}>
+
+          {/* BLINKING STAR BANNER */}
+          <div style={{ textAlign: 'center', padding: '10px', background: 'linear-gradient(to right, #1a237e, #283593, #1a237e)', borderRadius: '6px', marginBottom: '14px', border: '2px solid #7986cb' }}>
+            <div style={{ fontSize: '24px', lineHeight: '1.5' }}>
+              <span className="sparkle">{'\u2726'}</span>{' '}
+              <span className="sparkle" style={{ animationDelay: '0.2s' }}>{'\u2605'}</span>{' '}
+              <span className="sparkle" style={{ animationDelay: '0.4s' }}>{'\u2726'}</span>{' '}
+              <span className="sparkle" style={{ animationDelay: '0.6s' }}>{'\u2605'}</span>{' '}
+              <span className="sparkle" style={{ animationDelay: '0.8s' }}>{'\u2726'}</span>{' '}
+              <span className="sparkle" style={{ animationDelay: '1s' }}>{'\u2605'}</span>{' '}
+              <span className="sparkle" style={{ animationDelay: '1.2s' }}>{'\u2726'}</span>
+            </div>
+            <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', color: '#fff176', textShadow: '1px 1px 3px rgba(0,0,0,0.5)', marginTop: '4px' }}>
+              {'\u0417\u0412\u0401\u0417\u0414\u042B \u0413\u041E\u0412\u041E\u0420\u042F\u0422 \u0421\u0415\u0413\u041E\u0414\u041D\u042F...'}
+            </div>
+          </div>
+
+          {/* HOROSCOPE FOR EACH SIGN */}
+          <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', color: '#4e342e', marginBottom: '10px', textAlign: 'center' }}>
+            {'\u0413\u041E\u0420\u041E\u0421\u041A\u041E\u041F \u0414\u041B\u042F \u041A\u0410\u0416\u0414\u041E\u0413\u041E \u0417\u041D\u0410\u041A\u0410:'}
+          </div>
+
+          {signs.map((sign) => (
+            <table key={sign.name} className="news-table" style={{ border: '2px solid #4fc3f7', marginBottom: '10px' }}>
+              <thead>
+                <tr>
+                  <th style={{ background: 'linear-gradient(to bottom, #4fc3f7, #29b6f6)', color: '#fff', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', padding: '6px 10px', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}>
+                    {`${sign.symbol} ${sign.name}`}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style={{ background: '#e1f5fe' }}>
+                  <td style={{ padding: '10px', fontFamily: 'Verdana, sans-serif', fontSize: '13px', lineHeight: '1.6', color: '#333' }}>
+                    {sign.horoscopes[horoscopeIndex]}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          ))}
+
+          {/* BUTTON: TOMORROW */}
+          <div style={{ textAlign: 'center', margin: '16px 0' }}>
+            <button onClick={handleTomorrow} className="vote-btn" style={{ background: 'linear-gradient(to bottom, #4fc3f7, #0288d1)' }}>
+              {'\u2605 \u0415\u0436\u0435\u0434\u043D\u0435\u0432\u043D\u044B\u0439 \u0433\u043E\u0440\u043E\u0441\u043A\u043E\u043F \u043D\u0430 \u0437\u0430\u0432\u0442\u0440\u0430 \u2605'}
+            </button>
+          </div>
+
+          {/* MOON PHASE SECTION */}
+          <table style={{ width: '100%', borderCollapse: 'collapse', border: '2px solid #7986cb', marginBottom: '14px' }}>
+            <thead>
+              <tr>
+                <th colSpan={2} style={{ background: 'linear-gradient(to bottom, #3f51b5, #283593)', color: '#fff', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', padding: '8px 12px', textAlign: 'center', textShadow: '1px 1px 3px rgba(0,0,0,0.4)' }}>
+                  {'\uD83C\uDF19 \u041B\u0423\u041D\u0410 \u0421\u0415\u0413\u041E\u0414\u041D\u042F'}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ background: 'linear-gradient(to bottom, #e8eaf6, #c5cae9)' }}>
+                <td style={{ width: '80px', textAlign: 'center', padding: '12px', fontSize: '48px' }}>
+                  {moon ? moon.emoji : '\uD83C\uDF19'}
+                </td>
+                <td style={{ padding: '12px', fontFamily: 'Verdana, sans-serif', fontSize: '13px', lineHeight: '1.8' }}>
+                  <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#1a237e', marginBottom: '6px' }}>
+                    {`\u0424\u0430\u0437\u0430 \u043B\u0443\u043D\u044B: ${moon ? moon.phase.toUpperCase() : '\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430...'} (${moon ? moon.illumination : '...'}% \u043E\u0441\u0432\u0435\u0449\u0451\u043D\u043D\u043E\u0441\u0442\u0438)`}
+                  </div>
+                  <div style={{ fontWeight: 'bold', color: '#4e342e', marginBottom: '4px' }}>{'\u0412\u043B\u0438\u044F\u043D\u0438\u0435:'}</div>
+                  <div>{'\u274C \u041D\u0435 \u043D\u0430\u0447\u0438\u043D\u0430\u0439\u0442\u0435 \u043D\u043E\u0432\u044B\u0445 \u0434\u0435\u043B'}</div>
+                  <div>{'\u2705 \u0418\u0434\u0435\u0430\u043B\u044C\u043D\u043E \u0434\u043B\u044F \u0443\u0431\u043E\u0440\u043A\u0438 \u0438 \u0434\u0438\u0435\u0442'}</div>
+                  <div>{'\u2753 \u0420\u043E\u043C\u0430\u043D\u0442\u0438\u043A\u0430 \u043F\u043E\u0434 \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u043C'}</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          {/* COMPATIBILITY TABLE */}
+          <table style={{ width: '100%', borderCollapse: 'collapse', border: '2px solid #ffb74d', marginBottom: '14px' }}>
+            <thead>
+              <tr>
+                <th colSpan={13} style={{ background: 'linear-gradient(to bottom, #ffb74d, #ffa726)', color: '#4e342e', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', padding: '8px 10px', textAlign: 'center', borderBottom: '2px solid #ff8f00' }}>
+                  {'\u2665 \u0422\u0410\u0411\u041B\u0418\u0426\u0410 \u0421\u041E\u0412\u041C\u0415\u0421\u0422\u0418\u041C\u041E\u0421\u0422\u0418 \u0417\u041D\u0410\u041A\u041E\u0412 \u2665'}
+                </th>
+              </tr>
+              <tr style={{ background: '#fff8e1' }}>
+                <th style={{ border: '1px solid #ccc', padding: '2px', fontSize: '10px', width: '40px' }}></th>
+                {signs.map((s) => (
+                  <th key={s.name} style={{ border: '1px solid #ccc', padding: '2px', fontSize: '16px', textAlign: 'center', width: '30px' }} title={s.name}>
+                    {s.symbol}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {signs.map((rowSign, rowIdx) => (
+                <tr key={rowSign.name}>
+                  <td style={{ border: '1px solid #ccc', padding: '2px', fontSize: '16px', textAlign: 'center', background: '#fff8e1' }} title={rowSign.name}>
+                    {rowSign.symbol}
+                  </td>
+                  {compatibilityMatrix[rowIdx].map((val, colIdx) => (
+                    <td
+                      key={colIdx}
+                      style={{
+                        border: '1px solid #ccc',
+                        padding: '2px',
+                        textAlign: 'center',
+                        background: compatColors[val],
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                      }}
+                      title={`${rowSign.name} + ${signs[colIdx].name}`}
+                    >
+                      {compatLabels[val]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* LEGEND */}
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', fontFamily: 'Verdana, sans-serif', fontSize: '11px', marginBottom: '10px' }}>
+            <span><span style={{ display: 'inline-block', width: '14px', height: '14px', background: '#a5d6a7', border: '1px solid #ccc', verticalAlign: 'middle', marginRight: '4px' }}></span>{' \u043E\u0442\u043B\u0438\u0447\u043D\u043E'}</span>
+            <span><span style={{ display: 'inline-block', width: '14px', height: '14px', background: '#fff59d', border: '1px solid #ccc', verticalAlign: 'middle', marginRight: '4px' }}></span>{' \u0441\u0440\u0435\u0434\u043D\u0435'}</span>
+            <span><span style={{ display: 'inline-block', width: '14px', height: '14px', background: '#ef9a9a', border: '1px solid #ccc', verticalAlign: 'middle', marginRight: '4px' }}></span>{' \u043F\u043B\u043E\u0445\u043E'}</span>
+          </div>
+
+          <div style={{ textAlign: 'center', fontSize: '11px', color: '#888', fontFamily: 'Verdana, sans-serif', fontStyle: 'italic' }}>
+            {'\u0410\u0441\u0442\u0440\u043E\u043B\u043E\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043F\u0440\u043E\u0433\u043D\u043E\u0437 \u043D\u043E\u0441\u0438\u0442 \u0440\u0430\u0437\u0432\u043B\u0435\u043A\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440. \u0417\u0430 \u0445\u0438\u043D\u043A\u0430\u043B\u0438 \u0437\u0432\u0451\u0437\u0434\u044B \u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0441\u0442\u0438 \u043D\u0435 \u043D\u0435\u0441\u0443\u0442.'}
+          </div>
+        </div>
+      </div>
+    </ArticleLayout>
+  )
+}

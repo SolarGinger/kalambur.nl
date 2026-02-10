@@ -40,12 +40,11 @@ const horoscopes = [
 ]
 
 const menuItems = [
-  { label: 'Главная', href: '/' },
-  { label: 'Новости', href: '#news' },
-  { label: 'Астрология', href: '#horoscope' },
-  { label: 'Объявления', href: '#' },
-  { label: 'Хинкальные', href: '#' },
-  { label: 'Азиатки (18+)', href: '#' },
+  { label: 'Главная', href: '/', external: false },
+  { label: 'Новости', href: '/news/', external: false },
+  { label: 'Астрология', href: '/astrology/', external: false },
+  { label: 'Гостевая', href: '/guestbook/', external: false },
+  { label: 'Азиатки (18+)', href: 'https://123av.com', external: true },
 ]
 
 const newsItems = [
@@ -103,6 +102,22 @@ export default function Home() {
   const [visitorCount, setVisitorCount] = useState('000000')
   const [weather, setWeather] = useState<{ temp: number; description: string; icon: string } | null>(null)
   const [moon, setMoon] = useState<{ phase: string; emoji: string; illumination: number } | null>(null)
+  const [lastComment, setLastComment] = useState<{ name: string; text: string; date: string } | null>(null)
+
+  useEffect(() => {
+    // Load last guestbook comment
+    function loadLastComment() {
+      try {
+        const comments = JSON.parse(localStorage.getItem('kalamburComments') || '[]')
+        if (comments.length > 0) {
+          setLastComment(comments[comments.length - 1])
+        }
+      } catch { /* empty */ }
+    }
+    loadLastComment()
+    window.addEventListener('kalamburCommentsUpdated', loadLastComment)
+    return () => window.removeEventListener('kalamburCommentsUpdated', loadLastComment)
+  }, [])
 
   useEffect(() => {
     setZodiac(zodiacSigns[Math.floor(Math.random() * zodiacSigns.length)])
@@ -205,7 +220,7 @@ export default function Home() {
             {'>>> \u2605\u2605\u2605 ГОЛОСУЕМ ЗА НОВЫЙ КОСТЮМ ДЛЯ ДАВИДА! Нажми сюда! \u2605\u2605\u2605 <<<'}
           </a>
           {'     |||     '}
-          <span className="blink" style={{ color: '#fff176' }}>{'НОВОЕ!'}</span>
+          <span className="blink" style={{ color: '#fff176' }}>{'НОВ��Е!'}</span>
           {' Топ 5 хинкальных Бенелюкса \u2014 читай в новостях!     |||     '}
           {'Верка Сердючка едет в Амстердам! Не проп��сти! \u2605'}
         </marquee>
@@ -231,7 +246,7 @@ export default function Home() {
               <div style={{ padding: '8px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {menuItems.map((item) => (
-                    <a key={item.label} href={item.href} className="xp-button">
+                    <a key={item.label} href={item.href} className="xp-button" {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                       {'\u25B8 '}{item.label}
                     </a>
                   ))}
@@ -373,12 +388,20 @@ export default function Home() {
         </div>
         <div style={{ margin: '10px 0' }}>
           <span className="blink" style={{ color: '#d84315', fontSize: '14px' }}>{'\u2605'}</span>{' '}
-          <a href="#" style={{ fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '12px', color: '#d84315' }}>{'[ Гостевая книга ]'}</a>{' '}
+          <a href="/guestbook/" style={{ fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '12px', color: '#d84315' }}>{'[[ Гостевая книга ]]'}</a>{' '}
           <span className="blink" style={{ color: '#d84315', fontSize: '14px' }}>{'\u2605'}</span>
         </div>
         <div style={{ border: '2px inset #bcaaa4', background: '#efebe9', padding: '10px', margin: '8px auto', maxWidth: '400px', borderRadius: '4px', fontSize: '12px', fontFamily: 'Verdana, sans-serif' }}>
-          <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>{'Гостевая книга (последняя запись):'}</div>
-          <div style={{ fontStyle: 'italic', color: '#5d4037' }}>{'"Классный сайт!!! Добавьте ещё рецептов хинкали плиз))) \u2014 ЛенОк_87, Роттердам"'}</div>
+          {lastComment ? (
+            <>
+              <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>{'\u2605 Гостевая книга (последняя запись): \u2605'}</div>
+              <div style={{ fontStyle: 'italic', color: '#5d4037' }}>
+                {`"${lastComment.text.substring(0, 30)}..." `}<b>{`@${lastComment.name}`}</b>{` [${lastComment.date}]`}
+              </div>
+            </>
+          ) : (
+            <div style={{ fontWeight: 'bold', textAlign: 'center' }}>{'\u2605 Гостевая книга (напишите первый комментарий!) \u2605'}</div>
+          )}
         </div>
         <div style={{ marginTop: '10px', fontSize: '11px', color: '#8d6e63' }}>
           <div>{'Сделано на HTML с любовью \u2665'}</div>
