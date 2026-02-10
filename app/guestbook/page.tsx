@@ -11,41 +11,36 @@ interface Comment {
   color: string
 }
 
-const BG_COLORS = ['#FFCC99','#CCFFCC','#FF99CC','#99CCFF','#FFCCFF','#CCFFFF','#FFFFCC','#FF9999']
-
-function getRandomColor() {
-  return BG_COLORS[Math.floor(Math.random() * BG_COLORS.length)]
-}
-
-function getComments(): Comment[] {
-  if (typeof window === 'undefined') return []
-  try {
-    return JSON.parse(localStorage.getItem('kalamburComments') || '[]')
-  } catch {
-    return []
-  }
-}
-
-function saveComments(comments: Comment[]) {
-  localStorage.setItem('kalamburComments', JSON.stringify(comments))
-}
-
 export default function GuestbookPage() {
   const [comments, setComments] = useState<Comment[]>([])
   const [name, setName] = useState('')
   const [text, setText] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
   const [status, setStatus] = useState<{ msg: string; color: string } | null>(null)
 
-  useEffect(() => {
-    setComments(getComments())
+  const fetchComments = useCallback(async () => {
+    try {
+      const res = await fetch('/api/comments')
+      const data = await res.json()
+      setComments(data)
+    } catch {
+      /* empty */
+    } finally {
+      setLoading(false)
+    }
   }, [])
+
+  useEffect(() => {
+    fetchComments()
+  }, [fetchComments])
 
   const showStatus = useCallback((msg: string, color: string) => {
     setStatus({ msg, color })
     setTimeout(() => setStatus(null), 3000)
   }, [])
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const trimName = name.trim() || 'Аноним'
     const trimText = text.trim()
 
@@ -54,25 +49,27 @@ export default function GuestbookPage() {
       return
     }
 
-    const newComment: Comment = {
-      id: Date.now(),
-      name: trimName,
-      text: trimText,
-      date: new Date().toLocaleDateString('ru-RU'),
-      color: getRandomColor(),
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: trimName, text: trimText }),
+      })
+      if (res.ok) {
+        setName('')
+        setText('')
+        showStatus('Спасибо! Ваш комментарий добавлён!', '#2e7d32')
+        await fetchComments()
+      } else {
+        showStatus('Ошибка! Попробуйте ещё раз.', '#d32f2f')
+      }
+    } catch {
+      showStatus('Ошибка сети!', '#d32f2f')
+    } finally {
+      setSubmitting(false)
     }
-
-    const updated = [...comments, newComment]
-    saveComments(updated)
-    setComments(updated)
-    setName('')
-    setText('')
-    showStatus('Спасибо! Ваш комментарий добавлён!', '#2e7d32')
-    // Dispatch event so other components on the page can update
-    window.dispatchEvent(new Event('kalamburCommentsUpdated'))
   }
-
-  const reversed = [...comments].reverse()
 
   return (
     <ArticleLayout>
@@ -161,8 +158,9 @@ export default function GuestbookPage() {
                 <td colSpan={2} style={{ padding: '10px', textAlign: 'center' }}>
                   <button
                     onClick={handleSubmit}
+                    disabled={submitting}
                     style={{
-                      background: '#FF9900',
+                      background: submitting ? '#ccc' : '#FF9900',
                       border: '2px outset #FF6600',
                       borderRadius: '6px',
                       padding: '10px 28px',
@@ -170,11 +168,11 @@ export default function GuestbookPage() {
                       fontSize: '14px',
                       fontWeight: 'bold',
                       color: '#fff',
-                      cursor: 'pointer',
+                      cursor: submitting ? 'wait' : 'pointer',
                       textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
                     }}
                   >
-                    {'Отправить!'}
+                    {submitting ? 'Отправка...' : 'Отправить!'}
                   </button>
                 </td>
               </tr>
@@ -198,12 +196,16 @@ export default function GuestbookPage() {
             {'КОММЕНТАРИИ ПОСЕТИТЕЛЕЙ:'}
           </div>
 
-          {reversed.length === 0 ? (
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '20px', fontFamily: 'Verdana, sans-serif', fontSize: '13px', color: '#795548' }}>
+              {'Загрузка комментариев...'}
+            </div>
+          ) : comments.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '20px', background: '#fff9c4', border: '2px dashed #ffd54f', borderRadius: '6px', fontFamily: 'Verdana, sans-serif', fontSize: '13px', color: '#795548' }}>
               {'Пока никто не написал. Будьте первым!'}
             </div>
           ) : (
-            reversed.map((comment) => (
+            comments.map((comment) => (
               <table key={comment.id} style={{ width: '100%', border: '1px solid #000', marginBottom: '10px', borderCollapse: 'collapse' }}>
                 <thead>
                   <tr>
