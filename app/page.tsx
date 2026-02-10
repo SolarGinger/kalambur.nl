@@ -298,7 +298,7 @@ export default function Home() {
         </div>
         <div style={{ marginTop: '10px', fontSize: '11px', color: '#8d6e63' }}>
           <div>{'Сделано на HTML с любовью \u2665'}</div>
-          <div style={{ marginTop: '4px', fontWeight: 'bold' }}>{'\u00A9 каламбур.nl, 2004-2026'}</div>
+          <div style={{ marginTop: '4px', fontWeight: 'bold' }}>{'\u00A9 Каламбур.nl, 2004-2026'}</div>
           <div style={{ marginTop: '2px', fontSize: '10px' }}>{'Оптимизировано для Internet Explorer 6.0 | Разрешение 1024\u00D7768'}</div>
         </div>
       </footer>
