@@ -40,12 +40,10 @@ const horoscopes = [
 ]
 
 const menuItems = [
-  { label: 'Главная', href: '/' },
-  { label: 'Новости', href: '#news' },
-  { label: 'Астрология', href: '#horoscope' },
-  { label: 'Объявления', href: '#' },
-  { label: 'Хинкальные', href: '#' },
-  { label: 'Азиатки (18+)', href: '#' },
+  { label: 'Главная', href: '/', external: false },
+  { label: 'Новости', href: '/news/', external: false },
+  { label: 'Астрология', href: '/astrology/', external: false },
+  { label: 'Азиатки (18+)', href: 'https://123av.com', external: true },
 ]
 
 const newsItems = [
@@ -205,7 +203,7 @@ export default function Home() {
             {'>>> \u2605\u2605\u2605 ГОЛОСУЕМ ЗА НОВЫЙ КОСТЮМ ДЛЯ ДАВИДА! Нажми сюда! \u2605\u2605\u2605 <<<'}
           </a>
           {'     |||     '}
-          <span className="blink" style={{ color: '#fff176' }}>{'НОВОЕ!'}</span>
+          <span className="blink" style={{ color: '#fff176' }}>{'НОВ��Е!'}</span>
           {' Топ 5 хинкальных Бенелюкса \u2014 читай в новостях!     |||     '}
           {'Верка Сердючка едет в Амстердам! Не проп��сти! \u2605'}
         </marquee>
@@ -231,7 +229,7 @@ export default function Home() {
               <div style={{ padding: '8px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {menuItems.map((item) => (
-                    <a key={item.label} href={item.href} className="xp-button">
+                    <a key={item.label} href={item.href} className="xp-button" {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                       {'\u25B8 '}{item.label}
                     </a>
                   ))}

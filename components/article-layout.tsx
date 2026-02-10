@@ -39,12 +39,10 @@ const horoscopes = [
 ]
 
 const menuItems = [
-  { label: 'Главная', href: '/' },
-  { label: 'Новости', href: '/#news' },
-  { label: 'Астрология', href: '/#horoscope' },
-  { label: 'Объявления', href: '/#' },
-  { label: 'Хинкальные', href: '/news/hinkali-top' },
-  { label: 'Азиатки (18+)', href: '/news/asian-secrets' },
+  { label: 'Главная', href: '/', external: false },
+  { label: 'Новости', href: '/news/', external: false },
+  { label: 'Астрология', href: '/astrology/', external: false },
+  { label: 'Азиатки (18+)', href: 'https://123av.com', external: true },
 ]
 
 export function ArticleLayout({ children }: { children: ReactNode }) {
@@ -188,7 +186,7 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
               <div style={{ padding: '8px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {menuItems.map((item) => (
-                    <a key={item.label} href={item.href} className="xp-button">
+                    <a key={item.label} href={item.href} className="xp-button" {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                       {'\u25B8 '}{item.label}
                     </a>
                   ))}
