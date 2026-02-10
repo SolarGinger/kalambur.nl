@@ -1,17 +1,14 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _inter = Inter({ subsets: ["latin"] })
-
 export const metadata: Metadata = {
-  title: 'Kalambur',
-  description: 'Welcome to Kalambur - Discover, explore, and find what you are looking for.',
+  title: 'Каламбур.nl - Ваш любимый портал!',
+  description: 'Каламбур.nl - новости, астрология, объявления и многое другое! Лучший портал рунета с 2004 года.',
 }
 
 export const viewport: Viewport = {
-  themeColor: '#1a1a1a',
+  themeColor: '#ffb74d',
 }
 
 export default function RootLayout({
@@ -20,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
+    <html lang="ru">
+      <body>
         {children}
         <Analytics />
       </body>
