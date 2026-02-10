@@ -97,6 +97,7 @@ const newsItems = [
 ]
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false)
   const [zodiac, setZodiac] = useState<typeof zodiacSigns[0] | null>(null)
   const [horoscope, setHoroscope] = useState('')
   const [visitorCount, setVisitorCount] = useState('000000')
@@ -138,9 +139,9 @@ export default function Home() {
       {/* HEADER */}
       <header className="site-header">
         {/* Top row: Moon (left) + Title (center) + Weather (right) */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '60px', gap: '8px' }}>
+        <div className="header-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '60px', gap: '8px' }}>
           {/* Moon - left corner */}
-          <div className="moon-widget" style={{ width: '140px', flexShrink: 0, padding: '6px' }}>
+          <div className="moon-widget header-moon" style={{ width: '140px', flexShrink: 0, padding: '6px' }}>
             {moon ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <div style={{ fontSize: '50px', lineHeight: '1', width: '50px', height: '50px', textAlign: 'center' }}>
@@ -158,7 +159,7 @@ export default function Home() {
           </div>
 
           {/* Title - center */}
-          <div style={{ textAlign: 'center', flex: 1 }}>
+          <div className="header-title" style={{ textAlign: 'center', flex: 1 }}>
             <div style={{ fontSize: '18px', color: '#ff6d00' }}>
               {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
             </div>
@@ -172,7 +173,7 @@ export default function Home() {
           </div>
 
           {/* Weather - right corner */}
-          <div className="weather-header-widget" style={{ width: '180px', flexShrink: 0 }}>
+          <div className="weather-header-widget header-weather" style={{ width: '180px', flexShrink: 0 }}>
             {weather ? (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
                 <img
@@ -206,15 +207,23 @@ export default function Home() {
           {'     |||     '}
           <span className="blink" style={{ color: '#fff176' }}>{'НОВОЕ!'}</span>
           {' Топ 5 хинкальных Бенелюкса \u2014 читай в новостях!     |||     '}
-          {'Верка Сердючка едет в Амстердам! Не пропусти! \u2605'}
+          {'Верка Сердючка едет в Амстердам! Не проп��сти! \u2605'}
         </marquee>
       </div>
 
       {/* MAIN 3-COLUMN LAYOUT */}
-      <div style={{ display: 'flex', gap: '10px', padding: '10px', alignItems: 'flex-start' }}>
-        {/* LEFT COLUMN - MOON + MENU */}
-        <div style={{ width: '180px', flexShrink: 0 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div className="main-columns" style={{ display: 'flex', gap: '10px', padding: '10px', alignItems: 'flex-start' }}>
+        {/* LEFT COLUMN - MENU */}
+        <div className="col-left" style={{ width: '180px', flexShrink: 0 }}>
+          {/* Burger button - mobile only */}
+          <button
+            className="burger-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {'\u2630 \u041C\u0415\u041D\u042E'}
+          </button>
+          <div className={`menu-content ${menuOpen ? 'menu-open' : ''}`} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
 
             {/* Menu */}
             <div className="retro-panel">
@@ -243,7 +252,7 @@ export default function Home() {
         </div>
 
         {/* CENTER COLUMN - NEWS */}
-        <div style={{ flex: 1, minWidth: 0 }} id="news">
+        <div className="col-center" style={{ flex: 1, minWidth: 0 }} id="news">
           <div className="retro-panel">
             <div className="retro-panel-header">{'\uD83D\uDCF0 НОВОСТИ ПОРТАЛА'}</div>
             <div style={{ padding: '10px' }}>
@@ -280,8 +289,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN - WEATHER + CALENDAR + HOROSCOPE */}
-        <div style={{ width: '200px', flexShrink: 0 }}>
+        {/* RIGHT COLUMN - CALENDAR + HOROSCOPE */}
+        <div className="col-right" style={{ width: '200px', flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
             {/* Calendar */}
