@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useState, useEffect, type ReactNode } from 'react'
 
 const calendarEvents: Record<number, string> = {
   12: 'перенос блинов с января',
@@ -41,62 +40,14 @@ const horoscopes = [
 
 const menuItems = [
   { label: 'Главная', href: '/' },
-  { label: 'Новости', href: '#news' },
-  { label: 'Астрология', href: '#horoscope' },
-  { label: 'Объявления', href: '#' },
-  { label: 'Хинкальные', href: '#' },
-  { label: 'Азиатки (18+)', href: '#' },
+  { label: 'Новости', href: '/#news' },
+  { label: 'Астрология', href: '/#horoscope' },
+  { label: 'Объявления', href: '/#' },
+  { label: 'Хинкальные', href: '/news/hinkali-top' },
+  { label: 'Азиатки (18+)', href: '/news/asian-secrets' },
 ]
 
-const newsItems = [
-  {
-    id: 1,
-    title: '12 секретов знакомства с азиатками, автор И. Пугачёв',
-    text: 'Игорь Пугачёв (@spnlck) раскрывает 12 шокирующих секретов!',
-    image: null as string | null,
-    headerBg: '#ffcc80',
-    bodyBg: '#fffde7',
-    link: '/news/asian-secrets' as string | undefined,
-  },
-  {
-    id: 2,
-    title: 'Голосуем за костюм для Давида!',
-    text: 'Друзья! Давид снова выступает аниматором на нашем корпоративе, и ему нужен НОВЫЙ костюм! Голосование уже открыто — выбирай из 5 шедевров!',
-    image: null,
-    headerBg: '#ef9a9a',
-    bodyBg: '#fce4ec',
-    link: '/vote',
-  },
-  {
-    id: 3,
-    title: 'Топ 5 хинкальных Бенелюкса',
-    text: 'Олег Нижник (@Odomontois) тестировал все хинкальные \u2014 \u21161 шокирует!',
-    image: '/images/khinkali.jpg',
-    headerBg: '#a5d6a7',
-    bodyBg: '#e8f5e9',
-    link: '/news/hinkali-top',
-  },
-  {
-    id: 4,
-    title: 'Мы посетили корейскую барбекюшную: фотоотчёт',
-    text: '@ilon_essa: мясо жарится САМО! Тайны корейского дыма!',
-    image: '/images/asian-food.jpg',
-    headerBg: '#ffcc80',
-    bodyBg: '#fff8e1',
-    link: '/news/kbbq-report',
-  },
-  {
-    id: 5,
-    title: 'В Амстердам едет Верка Сердючка!',
-    text: 'Верка на Red Light District? Твиттер в шоке!',
-    image: '/images/serduchka.jpg',
-    headerBg: '#ce93d8',
-    bodyBg: '#f3e5f5',
-    link: '/news/verkka-amsterdam',
-  },
-]
-
-export default function Home() {
+export function ArticleLayout({ children }: { children: ReactNode }) {
   const [zodiac, setZodiac] = useState<typeof zodiacSigns[0] | null>(null)
   const [horoscope, setHoroscope] = useState('')
   const [visitorCount, setVisitorCount] = useState('000000')
@@ -120,7 +71,7 @@ export default function Home() {
   }, [])
 
   const daysInMonth = 28
-  const startDay = 6 // Feb 1, 2026 is Sunday (index 6 in Mon-based week)
+  const startDay = 6
   const weeks: (number | null)[][] = []
   let day = 1
   let currentWeek: (number | null)[] = []
@@ -137,7 +88,6 @@ export default function Home() {
     <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
       {/* HEADER */}
       <header className="site-header">
-        {/* Top row: Moon (left) + Title (center) + Weather (right) */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '60px', gap: '8px' }}>
           {/* Moon - left corner */}
           <div className="moon-widget" style={{ width: '140px', flexShrink: 0, padding: '6px' }}>
@@ -163,7 +113,9 @@ export default function Home() {
               {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
             </div>
             <h1>
-              {'{ '}<span style={{ color: '#e65100' }}>{'Каламбур'}</span>{'.nl }'}
+              <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                {'{ '}<span style={{ color: '#e65100' }}>{'Каламбур'}</span>{'.nl }'}
+              </a>
             </h1>
             <p>{'Ваш любимый портал с 2004 года! \u2605 Новости \u2605 Астрология \u2605 Объявления \u2605'}</p>
             <div style={{ fontSize: '18px', color: '#ff6d00' }}>
@@ -210,13 +162,18 @@ export default function Home() {
         </marquee>
       </div>
 
+      {/* BACK LINK */}
+      <div style={{ padding: '8px 12px', background: 'linear-gradient(to bottom, #ffb74d, #ffa726)', borderBottom: '2px solid #e65100' }}>
+        <a href="/" style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#4e342e', textDecoration: 'none' }}>
+          {'\u2190 Назад к новостям'}
+        </a>
+      </div>
+
       {/* MAIN 3-COLUMN LAYOUT */}
       <div style={{ display: 'flex', gap: '10px', padding: '10px', alignItems: 'flex-start' }}>
-        {/* LEFT COLUMN - MOON + MENU */}
+        {/* LEFT COLUMN - MENU */}
         <div style={{ width: '180px', flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-
-            {/* Menu */}
             <div className="retro-panel">
               <div className="retro-panel-header">{'\u2630 \u041C\u0415\u041D\u042E'}</div>
               <div style={{ padding: '8px' }}>
@@ -242,48 +199,14 @@ export default function Home() {
           </div>
         </div>
 
-        {/* CENTER COLUMN - NEWS */}
-        <div style={{ flex: 1, minWidth: 0 }} id="news">
-          <div className="retro-panel">
-            <div className="retro-panel-header">{'\uD83D\uDCF0 НОВОСТИ ПОРТАЛА'}</div>
-            <div style={{ padding: '10px' }}>
-              {newsItems.map((news) => (
-                <table key={news.id} className="news-table">
-                  <thead>
-                    <tr>
-                      <th colSpan={2} style={{ background: news.headerBg }}>
-                        {news.link ? (
-                          <a href={news.link} style={{ color: '#4e342e', textDecoration: 'none' }}>{news.title}</a>
-                        ) : news.title}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style={{ background: news.bodyBg }}>
-                      {news.image && (
-                        <td style={{ width: '120px' }}>
-                          <Image src={news.image} alt={news.title} width={110} height={80} style={{ border: '2px solid #bcaaa4', borderRadius: '2px', objectFit: 'cover' }} />
-                        </td>
-                      )}
-                      <td colSpan={news.image ? 1 : 2}>
-                        <span style={{ fontFamily: 'Verdana, sans-serif' }}>{news.text}</span>
-                        <br />
-                        <span style={{ fontSize: '11px', color: '#888', fontStyle: 'italic', fontFamily: 'Verdana, sans-serif' }}>
-                          {'Опубликовано: 10.02.2026'}
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              ))}
-            </div>
-          </div>
+        {/* CENTER COLUMN - ARTICLE CONTENT */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {children}
         </div>
 
-        {/* RIGHT COLUMN - WEATHER + CALENDAR + HOROSCOPE */}
+        {/* RIGHT COLUMN - CALENDAR + HOROSCOPE */}
         <div style={{ width: '200px', flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-
             {/* Calendar */}
             <div className="retro-panel" style={{ maxWidth: '220px' }}>
               <div className="retro-panel-header" style={{ fontSize: '11px', padding: '4px 6px' }}>{'\uD83D\uDCC5 ВСТРЕЧИ У ИЛОНЫ'}</div>
