@@ -48,6 +48,7 @@ const menuItems = [
 ]
 
 export function ArticleLayout({ children }: { children: ReactNode }) {
+  const [menuOpen, setMenuOpen] = useState(false)
   const [zodiac, setZodiac] = useState<typeof zodiacSigns[0] | null>(null)
   const [horoscope, setHoroscope] = useState('')
   const [visitorCount, setVisitorCount] = useState('000000')
@@ -88,9 +89,9 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
     <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
       {/* HEADER */}
       <header className="site-header">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '60px', gap: '8px' }}>
+        <div className="header-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '60px', gap: '8px' }}>
           {/* Moon - left corner */}
-          <div className="moon-widget" style={{ width: '140px', flexShrink: 0, padding: '6px' }}>
+          <div className="moon-widget header-moon" style={{ width: '140px', flexShrink: 0, padding: '6px' }}>
             {moon ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <div style={{ fontSize: '50px', lineHeight: '1', width: '50px', height: '50px', textAlign: 'center' }}>
@@ -108,7 +109,7 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
           </div>
 
           {/* Title - center */}
-          <div style={{ textAlign: 'center', flex: 1 }}>
+          <div className="header-title" style={{ textAlign: 'center', flex: 1 }}>
             <div style={{ fontSize: '18px', color: '#ff6d00' }}>
               {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
             </div>
@@ -124,7 +125,7 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
           </div>
 
           {/* Weather - right corner */}
-          <div className="weather-header-widget" style={{ width: '180px', flexShrink: 0 }}>
+          <div className="weather-header-widget header-weather" style={{ width: '180px', flexShrink: 0 }}>
             {weather ? (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
                 <img
@@ -170,10 +171,18 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
       </div>
 
       {/* MAIN 3-COLUMN LAYOUT */}
-      <div style={{ display: 'flex', gap: '10px', padding: '10px', alignItems: 'flex-start' }}>
+      <div className="main-columns" style={{ display: 'flex', gap: '10px', padding: '10px', alignItems: 'flex-start' }}>
         {/* LEFT COLUMN - MENU */}
-        <div style={{ width: '180px', flexShrink: 0 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div className="col-left" style={{ width: '180px', flexShrink: 0 }}>
+          {/* Burger button - mobile only */}
+          <button
+            className="burger-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {'\u2630 \u041C\u0415\u041D\u042E'}
+          </button>
+          <div className={`menu-content ${menuOpen ? 'menu-open' : ''}`} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div className="retro-panel">
               <div className="retro-panel-header">{'\u2630 \u041C\u0415\u041D\u042E'}</div>
               <div style={{ padding: '8px' }}>
@@ -200,12 +209,12 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
         </div>
 
         {/* CENTER COLUMN - ARTICLE CONTENT */}
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div className="col-center" style={{ flex: 1, minWidth: 0 }}>
           {children}
         </div>
 
         {/* RIGHT COLUMN - CALENDAR + HOROSCOPE */}
-        <div style={{ width: '200px', flexShrink: 0 }}>
+        <div className="col-right" style={{ width: '200px', flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {/* Calendar */}
             <div className="retro-panel" style={{ maxWidth: '220px' }}>
