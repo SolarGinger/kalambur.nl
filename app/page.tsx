@@ -56,7 +56,7 @@ const newsItems = [
     image: null as string | null,
     headerBg: '#ffcc80',
     bodyBg: '#fffde7',
-    link: undefined as string | undefined,
+    link: '/news/asian-secrets' as string | undefined,
   },
   {
     id: 2,
@@ -74,7 +74,7 @@ const newsItems = [
     image: '/images/khinkali.jpg',
     headerBg: '#a5d6a7',
     bodyBg: '#e8f5e9',
-    link: undefined,
+    link: '/news/hinkali-top',
   },
   {
     id: 4,
@@ -83,7 +83,7 @@ const newsItems = [
     image: '/images/asian-food.jpg',
     headerBg: '#ffcc80',
     bodyBg: '#fff8e1',
-    link: undefined,
+    link: '/news/kbbq-report',
   },
   {
     id: 5,
@@ -92,7 +92,7 @@ const newsItems = [
     image: '/images/serduchka.jpg',
     headerBg: '#ce93d8',
     bodyBg: '#f3e5f5',
-    link: undefined,
+    link: '/news/verkka-amsterdam',
   },
 ]
 
