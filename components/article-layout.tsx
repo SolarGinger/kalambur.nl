@@ -56,17 +56,10 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
   const [lastComment, setLastComment] = useState<{ name: string; text: string; date: string } | null>(null)
 
   useEffect(() => {
-    function loadLastComment() {
-      try {
-        const comments = JSON.parse(localStorage.getItem('kalamburComments') || '[]')
-        if (comments.length > 0) {
-          setLastComment(comments[comments.length - 1])
-        }
-      } catch { /* empty */ }
-    }
-    loadLastComment()
-    window.addEventListener('kalamburCommentsUpdated', loadLastComment)
-    return () => window.removeEventListener('kalamburCommentsUpdated', loadLastComment)
+    fetch('/api/comments?last=1')
+      .then(r => r.json())
+      .then(data => { if (data) setLastComment(data) })
+      .catch(() => {})
   }, [])
 
   useEffect(() => {
