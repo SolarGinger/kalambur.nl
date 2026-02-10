@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 const calendarEvents: Record<number, string> = {
-  3: 'перенос блинов с января',
-  10: 'перенос чая с декабря',
-  17: 'встреча отменена',
+  12: 'перенос блинов с января',
+  21: 'перенос чая с декабря',
+  26: 'встреча отменена',
 }
 
 const zodiacSigns = [
@@ -120,7 +120,7 @@ export default function Home() {
   }, [])
 
   const daysInMonth = 28
-  const startDay = 5 // Feb 2026 starts on Thursday (index 3 for Mon-based), but keeping as 5 for Sat start
+  const startDay = 6 // Feb 1, 2026 is Sunday (index 6 in Mon-based week)
   const weeks: (number | null)[][] = []
   let day = 1
   let currentWeek: (number | null)[] = []
@@ -137,15 +137,63 @@ export default function Home() {
     <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
       {/* HEADER */}
       <header className="site-header">
-        <div style={{ fontSize: '18px', color: '#ff6d00' }}>
-          {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
-        </div>
-        <h1>
-          {'{ '}<span style={{ color: '#e65100' }}>{'Каламбур'}</span>{'.nl }'}
-        </h1>
-        <p>{'Ваш любимый портал с 2004 года! \u2605 Новости \u2605 Астрология \u2605 Объявления \u2605'}</p>
-        <div style={{ fontSize: '18px', color: '#ff6d00' }}>
-          {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
+        {/* Top row: Moon (left) + Title (center) + Weather (right) */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '60px', gap: '8px' }}>
+          {/* Moon - left corner */}
+          <div className="moon-widget" style={{ width: '140px', flexShrink: 0, padding: '6px' }}>
+            {moon ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ fontSize: '50px', lineHeight: '1', width: '50px', height: '50px', textAlign: 'center' }}>
+                  {moon.emoji}
+                </div>
+                <div>
+                  <div style={{ fontFamily: "'Comic Sans MS', 'Comic Sans', cursive", fontSize: '14px', color: '#1a237e', lineHeight: '1.2' }}>
+                    {`Луна: ${moon.phase}`}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div style={{ fontFamily: "'Comic Sans MS', cursive", fontSize: '12px', color: '#7986cb', textAlign: 'center' }}>{'загрузка...'}</div>
+            )}
+          </div>
+
+          {/* Title - center */}
+          <div style={{ textAlign: 'center', flex: 1 }}>
+            <div style={{ fontSize: '18px', color: '#ff6d00' }}>
+              {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
+            </div>
+            <h1>
+              {'{ '}<span style={{ color: '#e65100' }}>{'Каламбур'}</span>{'.nl }'}
+            </h1>
+            <p>{'Ваш любимый портал с 2004 года! \u2605 Новости \u2605 Астрология \u2605 Объявления \u2605'}</p>
+            <div style={{ fontSize: '18px', color: '#ff6d00' }}>
+              {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
+            </div>
+          </div>
+
+          {/* Weather - right corner */}
+          <div className="weather-header-widget" style={{ width: '180px', flexShrink: 0 }}>
+            {weather ? (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+                  alt={weather.description}
+                  width={40}
+                  height={40}
+                />
+                <div>
+                  <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '16px', color: '#fff', lineHeight: '1' }}>
+                    {`${weather.temp}\u00B0C`}
+                  </div>
+                  <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '11px', color: '#fff3e0', textTransform: 'capitalize' }}>
+                    {weather.description}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '12px', color: '#fff', textAlign: 'center' }}>{'загрузка...'}</div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -167,35 +215,6 @@ export default function Home() {
         {/* LEFT COLUMN - MOON + MENU */}
         <div style={{ width: '180px', flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-
-            {/* Moon Phase Widget */}
-            <div className="moon-widget">
-              <div style={{ textAlign: 'center', fontSize: '10px', fontFamily: 'Arial Black, Arial, sans-serif', color: '#1a237e', marginBottom: '4px' }}>
-                {'\u2729 \u2605 ФАЗА ЛУНЫ \u2605 \u2729'}
-              </div>
-              {moon ? (
-                <>
-                  <div style={{ textAlign: 'center', fontSize: '36px', lineHeight: '1', margin: '4px 0' }}>
-                    {moon.emoji}
-                  </div>
-                  <div style={{ textAlign: 'center', fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '11px', color: '#1a237e' }}>
-                    {`Луна: ${moon.phase}`}
-                  </div>
-                  <div style={{ textAlign: 'center', fontSize: '9px', color: '#5c6bc0', fontFamily: 'Verdana, sans-serif', marginTop: '2px' }}>
-                    {`освещённость: ${moon.illumination}%`}
-                  </div>
-                </>
-              ) : (
-                <div style={{ textAlign: 'center', fontSize: '12px', color: '#7986cb' }}>{'загрузка...'}</div>
-              )}
-              <div style={{ textAlign: 'center', marginTop: '4px', fontSize: '10px', lineHeight: '1' }}>
-                <span className="sparkle">{'\u2726'}</span>{' '}
-                <span className="sparkle" style={{ animationDelay: '0.2s' }}>{'\u2605'}</span>{' '}
-                <span className="sparkle" style={{ animationDelay: '0.4s' }}>{'\u2726'}</span>{' '}
-                <span className="sparkle" style={{ animationDelay: '0.6s' }}>{'\u2605'}</span>{' '}
-                <span className="sparkle" style={{ animationDelay: '0.8s' }}>{'\u2726'}</span>
-              </div>
-            </div>
 
             {/* Menu */}
             <div className="retro-panel">
@@ -265,42 +284,14 @@ export default function Home() {
         <div style={{ width: '200px', flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
-            {/* Weather Widget */}
-            <div className="weather-widget">
-              <div style={{ fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '11px', color: '#e65100', textAlign: 'center', marginBottom: '4px' }}>
-                {'\u2600 ПОГОДА В АМСТЕРДАМЕ \u2600'}
-              </div>
-              {weather ? (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                  <img
-                    src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
-                    alt={weather.description}
-                    width={48}
-                    height={48}
-                    style={{ imageRendering: 'auto' }}
-                  />
-                  <div>
-                    <div style={{ fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '22px', color: '#e65100', lineHeight: '1' }}>
-                      {`${weather.temp}\u00B0C`}
-                    </div>
-                    <div style={{ fontFamily: 'Verdana, sans-serif', fontSize: '11px', color: '#bf360c', textTransform: 'capitalize' }}>
-                      {weather.description}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div style={{ textAlign: 'center', fontSize: '12px', color: '#ff8f00' }}>{'загрузка...'}</div>
-              )}
-            </div>
-
             {/* Calendar */}
-            <div className="retro-panel">
+            <div className="retro-panel" style={{ maxWidth: '220px' }}>
               <div className="retro-panel-header" style={{ fontSize: '11px', padding: '4px 6px' }}>{'\uD83D\uDCC5 ВСТРЕЧИ У ИЛОНЫ'}</div>
               <div style={{ padding: '4px' }}>
-                <div style={{ textAlign: 'center', fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '11px', color: '#4e342e', padding: '2px 0' }}>
+                <div style={{ textAlign: 'center', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '11px', color: '#4e342e', padding: '2px 0' }}>
                   {'Февраль 2026'}
                 </div>
-                <table className="calendar-table" style={{ tableLayout: 'fixed', width: '100%' }}>
+                <table className="calendar-table">
                   <thead>
                     <tr>
                       <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
@@ -312,13 +303,23 @@ export default function Home() {
                         {week.map((d, j) => {
                           const event = d ? calendarEvents[d] : undefined
                           return (
-                            <td key={j} className={event ? 'cal-event' : ''} title={event || ''}>
-                              {d && (
-                                <>
-                                  <strong>{d}</strong>
-                                  {event && <span className="cal-event-text">{event}</span>}
-                                </>
-                              )}
+                            <td
+                              key={j}
+                              title={event || ''}
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                background: event ? '#FFB6C1' : undefined,
+                                cursor: event ? 'help' : undefined,
+                                fontSize: '12px',
+                                textAlign: 'center',
+                                verticalAlign: 'middle',
+                                border: '1px solid #ccc',
+                                position: 'relative',
+                              }}
+                              className={event ? 'cal-event-cell' : ''}
+                            >
+                              {d && <span>{d}</span>}
                             </td>
                           )
                         })}
