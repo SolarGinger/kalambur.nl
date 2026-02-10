@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS votes (
+  id SERIAL PRIMARY KEY,
+  costume_id VARCHAR(20) NOT NULL,
+  ip_hash VARCHAR(64),
+  created_at TIMESTAMP DEFAULT NOW()
+);
