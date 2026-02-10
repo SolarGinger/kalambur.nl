@@ -1,38 +1,307 @@
-import { RetroHeader } from '@/components/retro-header'
-import { LeftMenu } from '@/components/left-menu'
-import { NewsSection } from '@/components/news-section'
-import { RightColumn } from '@/components/right-column'
-import { RetroFooter } from '@/components/retro-footer'
+'use client'
+
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+
+const calendarEvents: Record<number, string> = {
+  3: 'чай у Илоны',
+  7: 'просмотр сериала',
+  10: 'поездка в IKEA',
+  14: 'чай у Илоны',
+  18: 'караоке-вечер',
+  21: 'просмотр сериала',
+  25: 'чай у Илоны',
+  28: 'поездка в IKEA',
+}
+
+const zodiacSigns = [
+  { sign: 'Овен', symbol: '\u2648' },
+  { sign: 'Телец', symbol: '\u2649' },
+  { sign: 'Близнецы', symbol: '\u264A' },
+  { sign: 'Рак', symbol: '\u264B' },
+  { sign: 'Лев', symbol: '\u264C' },
+  { sign: 'Дева', symbol: '\u264D' },
+  { sign: 'Весы', symbol: '\u264E' },
+  { sign: 'Скорпион', symbol: '\u264F' },
+  { sign: 'Стрелец', symbol: '\u2650' },
+  { sign: 'Козерог', symbol: '\u2651' },
+  { sign: 'Водолей', symbol: '\u2652' },
+  { sign: 'Рыбы', symbol: '\u2653' },
+]
+
+const horoscopes = [
+  'Сегодня тебе повезёт, если не возьмёшь трубку от бывшего.',
+  'Звёзды говорят: не ходи сегодня в IKEA, вернёшься с тележкой ненужного.',
+  'Финансовый прорыв возможен, если найдёшь 2 евро в старой куртке.',
+  'Любовь ждёт тебя за углом. Буквально. У соседнего подъезда.',
+  'Сегодня отличный день для новых начинаний. Например, можно наконец помыть посуду.',
+  'Ретроградный Меркурий закончился, но ваш Wi-Fi всё равно будет глючить.',
+  'Удачный день для шопинга! Особенно если у вас нет денег — тогда вы ничего не потратите.',
+  'Сегодня вас ждёт сюрприз на работе. Скорее всего, внеплановое совещание.',
+  'Звёзды рекомендуют: ешьте больше хинкали. Это не астрология, просто совет.',
+  'Ваша харизма сегодня на максимуме. Используйте это, чтобы убедить кота слезть со стола.',
+  'Творческая энергия зашкаливает! Время написать пост в гостевую книгу.',
+  'Будьте осторожны с огнём. Особенно если готовите на корейском барбекю.',
+]
+
+const menuItems = [
+  { label: 'Главная', href: '/' },
+  { label: 'Новости', href: '#news' },
+  { label: 'Астрология', href: '#horoscope' },
+  { label: 'Объявления', href: '#' },
+  { label: 'Хинкальные', href: '#' },
+  { label: 'Азиатки (18+)', href: '#' },
+]
+
+const newsItems = [
+  {
+    id: 1,
+    title: '12 секретов знакомства с азиатками, автор И. Пугачёв',
+    text: 'Известный эксперт по межкультурным отношениям Игорь Пугачёв раскрывает главные секреты. "Самое важное — это уважение к традициям", — утверждает автор. Читайте полную версию на нашем форуме...',
+    image: null as string | null,
+    headerBg: '#ffcc80',
+    bodyBg: '#fffde7',
+    link: undefined as string | undefined,
+  },
+  {
+    id: 2,
+    title: 'Голосуем за костюм для Давида!',
+    text: 'Друзья! Давид снова выступает аниматором на нашем корпоративе, и ему нужен НОВЫЙ костюм! Голосование уже открыто — выбирай из 5 шедевров!',
+    image: null,
+    headerBg: '#ef9a9a',
+    bodyBg: '#fce4ec',
+    link: '/vote',
+  },
+  {
+    id: 3,
+    title: 'Топ 5 хинкальных Бенелюкса',
+    text: 'Наш корреспондент Марина обошла все хинкальные от Амстердама до Брюсселя. Результаты удивят! На первом месте — "У Гиви" на Damrak. Хинкали сочные, тесто тонкое, цены — не кусаются.',
+    image: '/images/khinkali.jpg',
+    headerBg: '#a5d6a7',
+    bodyBg: '#e8f5e9',
+    link: undefined,
+  },
+  {
+    id: 4,
+    title: 'Мы посетили корейскую барбекюшную: фотоотчёт',
+    text: 'Вчера редакция Каламбур.nl посетила новую корейскую барбекюшную в районе De Pijp. Мясо жарили прямо на столе! Фотоотчёт прилагается. Оценка: 8/10.',
+    image: '/images/asian-food.jpg',
+    headerBg: '#ffcc80',
+    bodyBg: '#fff8e1',
+    link: undefined,
+  },
+  {
+    id: 5,
+    title: 'В Амстердам едет Верка Сердючка!',
+    text: 'СЕНСАЦИЯ! Верка Сердючка подтвердила концерт в Амстердаме! Дата: 15 марта. Место: Paradiso. Билеты уже в продаже. Не пропустите главное шоу весны!',
+    image: '/images/serduchka.jpg',
+    headerBg: '#ce93d8',
+    bodyBg: '#f3e5f5',
+    link: undefined,
+  },
+]
 
 export default function Home() {
+  const [zodiac, setZodiac] = useState<typeof zodiacSigns[0] | null>(null)
+  const [horoscope, setHoroscope] = useState('')
+  const [visitorCount, setVisitorCount] = useState('000000')
+
+  useEffect(() => {
+    setZodiac(zodiacSigns[Math.floor(Math.random() * zodiacSigns.length)])
+    setHoroscope(horoscopes[Math.floor(Math.random() * horoscopes.length)])
+    setVisitorCount((Math.floor(Math.random() * 50000) + 134567).toString().padStart(6, '0'))
+  }, [])
+
+  const daysInMonth = 28
+  const startDay = 5
+  const weeks: (number | null)[][] = []
+  let day = 1
+  let currentWeek: (number | null)[] = []
+  for (let i = 0; i < startDay; i++) currentWeek.push(null)
+  while (day <= daysInMonth) {
+    currentWeek.push(day)
+    if (currentWeek.length === 7) { weeks.push(currentWeek); currentWeek = [] }
+    day++
+  }
+  while (currentWeek.length > 0 && currentWeek.length < 7) currentWeek.push(null)
+  if (currentWeek.length > 0) weeks.push(currentWeek)
+
   return (
     <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-      <RetroHeader />
+      {/* HEADER */}
+      <header className="site-header">
+        <div style={{ fontSize: '18px', color: '#ff6d00' }}>
+          {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
+        </div>
+        <h1>
+          {'{ '}<span style={{ color: '#e65100' }}>{'Каламбур'}</span>{'.nl }'}
+        </h1>
+        <p>{'Ваш любимый портал с 2004 года! \u2605 Новости \u2605 Астрология \u2605 Объявления \u2605'}</p>
+        <div style={{ fontSize: '18px', color: '#ff6d00' }}>
+          {'~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~'}
+        </div>
+      </header>
 
-      {/* Main 3-column layout using table */}
-      <div style={{
-        display: 'flex',
-        gap: '10px',
-        padding: '10px',
-        alignItems: 'flex-start',
-      }}>
-        {/* Left column - Menu */}
+      {/* MARQUEE */}
+      <div className="retro-marquee">
+        <marquee scrollamount={4}>
+          <a href="/vote">
+            {'>>> \u2605\u2605\u2605 ГОЛОСУЕМ ЗА НОВЫЙ КОСТЮМ ДЛЯ ДАВИДА! Нажми сюда! \u2605\u2605\u2605 <<<'}
+          </a>
+          {'     |||     '}
+          <span className="blink" style={{ color: '#fff176' }}>{'НОВОЕ!'}</span>
+          {' Топ 5 хинкальных Бенелюкса \u2014 читай в новостях!     |||     '}
+          {'Верка Сердючка едет в Амстердам! Не пропусти! \u2605'}
+        </marquee>
+      </div>
+
+      {/* MAIN 3-COLUMN LAYOUT */}
+      <div style={{ display: 'flex', gap: '10px', padding: '10px', alignItems: 'flex-start' }}>
+        {/* LEFT COLUMN - MENU */}
         <div style={{ width: '180px', flexShrink: 0 }}>
-          <LeftMenu />
+          <div className="retro-panel">
+            <div className="retro-panel-header">{'\u2630 \u041C\u0415\u041D\u042E'}</div>
+            <div style={{ padding: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {menuItems.map((item) => (
+                  <a key={item.label} href={item.href} className="xp-button">
+                    {'\u25B8 '}{item.label}
+                  </a>
+                ))}
+              </div>
+              <div style={{ marginTop: '12px', padding: '8px', background: '#fff9c4', border: '1px dashed #ffb74d', borderRadius: '4px', fontSize: '11px', textAlign: 'center', fontFamily: 'Verdana, sans-serif' }}>
+                <div style={{ fontWeight: 'bold', color: '#d84315', marginBottom: '4px' }}>{'На сайте сейчас:'}</div>
+                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#e65100' }}>{'14'}</div>
+                <div>{'посетителей'}</div>
+              </div>
+              <div style={{ marginTop: '10px', textAlign: 'center', fontSize: '20px', lineHeight: '1' }}>
+                <span className="sparkle">{'\u2726'}</span>{' '}
+                <span className="sparkle" style={{ animationDelay: '0.3s' }}>{'\u2605'}</span>{' '}
+                <span className="sparkle" style={{ animationDelay: '0.6s' }}>{'\u2726'}</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Center column - News */}
+        {/* CENTER COLUMN - NEWS */}
         <div style={{ flex: 1, minWidth: 0 }} id="news">
-          <NewsSection />
+          <div className="retro-panel">
+            <div className="retro-panel-header">{'\uD83D\uDCF0 НОВОСТИ ПОРТАЛА'}</div>
+            <div style={{ padding: '10px' }}>
+              {newsItems.map((news) => (
+                <table key={news.id} className="news-table">
+                  <thead>
+                    <tr>
+                      <th colSpan={2} style={{ background: news.headerBg }}>
+                        {news.link ? (
+                          <a href={news.link} style={{ color: '#4e342e', textDecoration: 'none' }}>{news.title}</a>
+                        ) : news.title}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ background: news.bodyBg }}>
+                      {news.image && (
+                        <td style={{ width: '120px' }}>
+                          <Image src={news.image} alt={news.title} width={110} height={80} style={{ border: '2px solid #bcaaa4', borderRadius: '2px', objectFit: 'cover' }} />
+                        </td>
+                      )}
+                      <td colSpan={news.image ? 1 : 2}>
+                        <span style={{ fontFamily: 'Verdana, sans-serif' }}>{news.text}</span>
+                        <br />
+                        <span style={{ fontSize: '11px', color: '#888', fontStyle: 'italic', fontFamily: 'Verdana, sans-serif' }}>
+                          {'Опубликовано: 10.02.2026'}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Right column - Calendar + Horoscope */}
+        {/* RIGHT COLUMN - CALENDAR + HOROSCOPE */}
         <div style={{ width: '200px', flexShrink: 0 }}>
-          <RightColumn />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {/* Calendar */}
+            <div className="retro-panel">
+              <div className="retro-panel-header">{'\uD83D\uDCC5 ВСТРЕЧИ У ИЛОНЫ \u2014 Февраль'}</div>
+              <div style={{ padding: '6px' }}>
+                <table className="calendar-table">
+                  <thead>
+                    <tr>
+                      <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {weeks.map((week, i) => (
+                      <tr key={i}>
+                        {week.map((d, j) => {
+                          const event = d ? calendarEvents[d] : undefined
+                          return (
+                            <td key={j} className={event ? 'highlight' : ''}>
+                              {d && (<><strong>{d}</strong>{event && <span>{event}</span>}</>)}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Horoscope */}
+            <div className="horoscope-block" id="horoscope">
+              <h3>{'\u2605 Гороскоп дня \u2605'}</h3>
+              {zodiac && (
+                <>
+                  <div style={{ fontSize: '28px', textAlign: 'center', margin: '6px 0' }}>{zodiac.symbol}</div>
+                  <div style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Arial Black, Arial, sans-serif', color: '#01579b', marginBottom: '6px' }}>{zodiac.sign}</div>
+                  <div style={{ fontFamily: 'Verdana, sans-serif', fontStyle: 'italic', lineHeight: '1.5' }}>{`"${horoscope}"`}</div>
+                </>
+              )}
+              <div style={{ marginTop: '8px', fontSize: '10px', color: '#546e7a', textAlign: 'center', fontFamily: 'Verdana, sans-serif' }}>
+                {'Обновляется при каждом посещении!'}
+              </div>
+            </div>
+
+            {/* Mini ad */}
+            <div style={{ background: '#fff9c4', border: '2px dashed #ffd54f', borderRadius: '6px', padding: '8px', textAlign: 'center', fontSize: '11px', fontFamily: 'Verdana, sans-serif' }}>
+              <div style={{ fontWeight: 'bold', color: '#d84315', fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '12px' }}>{'РЕКЛАМА'}</div>
+              <div style={{ margin: '4px 0' }}>{'Хинкальная "У Гиви"'}</div>
+              <div style={{ fontSize: '10px', color: '#795548' }}>{'Damrak 42, Amsterdam'}<br />{'Скидка 10% по коду КАЛАМБУР'}</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <RetroFooter />
+      {/* FOOTER */}
+      <footer className="retro-footer">
+        <div style={{ marginBottom: '8px' }}>
+          <span style={{ fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '12px' }}>{'Счётчик посещений:'}</span>
+        </div>
+        <div className="visitor-counter" style={{ justifyContent: 'center' }}>
+          {visitorCount.split('').map((digit, i) => (
+            <span key={i} className="digit">{digit}</span>
+          ))}
+        </div>
+        <div style={{ margin: '10px 0' }}>
+          <span className="blink" style={{ color: '#d84315', fontSize: '14px' }}>{'\u2605'}</span>{' '}
+          <a href="#" style={{ fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '12px', color: '#d84315' }}>{'[ Гостевая книга ]'}</a>{' '}
+          <span className="blink" style={{ color: '#d84315', fontSize: '14px' }}>{'\u2605'}</span>
+        </div>
+        <div style={{ border: '2px inset #bcaaa4', background: '#efebe9', padding: '10px', margin: '8px auto', maxWidth: '400px', borderRadius: '4px', fontSize: '12px', fontFamily: 'Verdana, sans-serif' }}>
+          <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>{'Гостевая книга (последняя запись):'}</div>
+          <div style={{ fontStyle: 'italic', color: '#5d4037' }}>{'"Классный сайт!!! Добавьте ещё рецептов хинкали плиз))) \u2014 ЛенОк_87, Роттердам"'}</div>
+        </div>
+        <div style={{ marginTop: '10px', fontSize: '11px', color: '#8d6e63' }}>
+          <div>{'Сделано на HTML с любовью \u2665'}</div>
+          <div style={{ marginTop: '4px', fontWeight: 'bold' }}>{'\u00A9 каламбур.nl, 2004-2026'}</div>
+          <div style={{ marginTop: '2px', fontSize: '10px' }}>{'Оптимизировано для Internet Explorer 6.0 | Разрешение 1024\u00D7768'}</div>
+        </div>
+      </footer>
     </div>
   )
 }
