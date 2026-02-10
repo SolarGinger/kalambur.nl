@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 export const metadata = {
-  title: 'Корейская барбекюшная: фотоотчёт - Каламбур.nl',
-  description: 'Редакция Каламбур.nl посетила новую корейскую барбекюшную в De Pijp. Полный фотоотчёт!',
+  title: 'Корейская барбекюшная: что они скрывают?! - Каламбур.nl',
+  description: 'Эксклюзивный фотоотчёт от Илоны (@ilon_essa) из корейской барбекюшной на Zeedijk!',
 }
 
 export default function KbbqReportPage() {
@@ -27,7 +27,7 @@ export default function KbbqReportPage() {
           <thead>
             <tr>
               <th style={{ background: 'linear-gradient(to bottom, #ffcc80, #ffa726)', color: '#4e342e', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '18px', padding: '10px 14px', textAlign: 'left', borderBottom: '3px solid #e65100' }}>
-                {'МЫ ПОСЕТИЛИ КОРЕЙСКУЮ БАРБЕКЮШНУЮ: ФОТООТЧЁТ'}
+                {'КОРЕЙСКАЯ БАРБЕКЮШНАЯ В АМСТЕРДАМЕ: ЧТО ОНИ СКРЫВАЮТ?!'}
               </th>
             </tr>
           </thead>
@@ -37,119 +37,122 @@ export default function KbbqReportPage() {
                 {/* Author info */}
                 <div style={{ background: '#fff9c4', border: '2px dashed #ffb74d', padding: '10px', marginBottom: '14px', borderRadius: '4px' }}>
                   <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '12px', color: '#d84315' }}>
-                    {'Фотоотчёт от редакции Каламбур.nl'}
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#795548', fontStyle: 'italic', marginTop: '2px' }}>
-                    {'De Pijp, Amsterdam | 9 февраля 2026'}
+                    {'Автор: Илона (@ilon_essa)'}
                   </div>
                 </div>
 
-                <p style={{ marginBottom: '10px', fontWeight: 'bold', color: '#e65100' }}>
-                  {'Вчера вся редакция Каламбур.nl отправилась тестировать новую корейскую барбекюшную "Seoul BBQ" в модном районе De Pijp. Вот что из этого вышло!'}
+                {/* Breaking */}
+                <div style={{ background: '#ff5252', color: '#fff', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', textAlign: 'center', padding: '8px', marginBottom: '14px', borderRadius: '4px' }}>
+                  <span className="blink">{'\u26A1 ЭКСКЛЮЗИВНЫЙ ФОТООТЧЁТ ИЗ АДА КОРЁНЦЕВ! \u26A1'}</span>
+                </div>
+
+                <p style={{ marginBottom: '12px' }}>
+                  {'Редакция kalambur.nl рискнула жизнью и зашла в корейскую барбекюшную на Zeedijk. ЧТО МЫ УВИДЕЛИ \u2014 это ТРЕБУЕТ РАССЛЕДОВАНИЯ!'}
                 </p>
 
-                {/* Photo 1 */}
-                <table style={{ width: '100%', border: '2px solid #ffcc80', marginBottom: '12px', background: '#fffde7' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ background: '#ffcc80', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#4e342e', padding: '6px 10px' }}>
-                        {'18:30 \u2014 Прибытие'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '10px', textAlign: 'center' }}>
-                        <Image src="/images/asian-food.jpg" alt="Корейский BBQ" width={400} height={280} style={{ border: '3px solid #ffcc80', borderRadius: '4px' }} />
-                        <p style={{ marginTop: '8px' }}>
-                          {'Заведение встретило нас ароматом жареного мяса ещё с улицы. Интерьер \u2014 минимализм по-корейски: деревянные столы, встроенные грили, приглушённый свет. На каждом столе \u2014 вытяжка прямо над грилем. Цивилизация!'}
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div style={{ textAlign: 'center', margin: '10px 0' }}>
+                  <Image src="/images/asian-food.jpg" alt="Корейская барбекюшная" width={400} height={280} style={{ border: '3px solid #ffcc80', borderRadius: '4px' }} />
+                </div>
 
-                {/* Photo 2 */}
+                {/* Fact 1 */}
                 <table style={{ width: '100%', border: '2px solid #ef9a9a', marginBottom: '12px', background: '#fce4ec' }}>
                   <tbody>
                     <tr>
                       <td style={{ background: '#ef9a9a', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#b71c1c', padding: '6px 10px' }}>
-                        {'19:00 \u2014 Заказ и первое мясо на гриле!'}
+                        {'ФАКТ №1: МЯСО ЖАРИТСЯ САМО!'}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '10px', textAlign: 'center' }}>
-                        <Image src="/images/kbbq-grill.jpg" alt="Мясо на гриле" width={400} height={280} style={{ border: '3px solid #ef9a9a', borderRadius: '4px' }} />
-                        <p style={{ marginTop: '8px' }}>
-                          {'Заказали "All You Can Eat" за 29.50 евро с человека. Официант принёс 8 видов мяса: булгоги, самгёпсаль, галби, курицу в соусе, свиную шейку и ещё что-то, что мы не смогли произнести. Всё МРАМОРНОЕ. Жарим сами, переворачиваем щипцами. Ощущение \u2014 как шеф-повар на каникулах!'}
-                        </p>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Стол превращается в вулкан! "Они используют вулканическую лаву!" \u2014 уверена @ilon_essa после полулитра соджу.'}</p>
                       </td>
                     </tr>
                   </tbody>
                 </table>
 
-                {/* Side dishes */}
-                <table style={{ width: '100%', border: '2px solid #a5d6a7', marginBottom: '12px', background: '#e8f5e9' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ background: '#a5d6a7', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#1b5e20', padding: '6px 10px' }}>
-                        {'19:30 \u2014 Банчан (закуски) \u2014 БЕСКОНЕЧНЫЕ!'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '10px' }}>
-                        <p style={{ marginBottom: '8px' }}>
-                          {'К мясу принесли 12 (!!!) видов банчан: кимчи (3 вида!), маринованный дайкон, шпинат в кунжутном масле, бобовые ростки, острый тофу, japchae (стеклянная лапша) и ещё кучу всего. И ВСЁ ЭТО \u2014 БЕСПЛАТНО и с бесконечными рефиллами!'}
-                        </p>
-                        <p>{'Наш Игорь (да, тот самый @spnlck) съел 4 порции кимчи и заявил: "Это лучший способ познакомиться с кореянкой \u2014 показать, что ты любишь кимчи". Классика.'}</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                {/* Rating */}
+                {/* Fact 2 */}
                 <table style={{ width: '100%', border: '2px solid #ce93d8', marginBottom: '12px', background: '#f3e5f5' }}>
                   <tbody>
                     <tr>
                       <td style={{ background: '#ce93d8', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#4a148c', padding: '6px 10px' }}>
-                        {'21:00 \u2014 Итоги и оценка'}
+                        {'ФАКТ №2: ДЫМ ГИПНОТИЗИРУЕТ!'}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '10px' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', margin: '8px 0' }}>
-                          <tbody>
-                            <tr style={{ borderBottom: '1px solid #ce93d8' }}>
-                              <td style={{ padding: '4px 8px', fontWeight: 'bold' }}>{'Мясо:'}</td>
-                              <td style={{ padding: '4px 8px' }}>{'\u2605\u2605\u2605\u2605\u2605 9/10'}</td>
-                            </tr>
-                            <tr style={{ borderBottom: '1px solid #ce93d8' }}>
-                              <td style={{ padding: '4px 8px', fontWeight: 'bold' }}>{'Банчан:'}</td>
-                              <td style={{ padding: '4px 8px' }}>{'\u2605\u2605\u2605\u2605\u2605 10/10'}</td>
-                            </tr>
-                            <tr style={{ borderBottom: '1px solid #ce93d8' }}>
-                              <td style={{ padding: '4px 8px', fontWeight: 'bold' }}>{'Атмосфера:'}</td>
-                              <td style={{ padding: '4px 8px' }}>{'\u2605\u2605\u2605\u2605 8/10'}</td>
-                            </tr>
-                            <tr style={{ borderBottom: '1px solid #ce93d8' }}>
-                              <td style={{ padding: '4px 8px', fontWeight: 'bold' }}>{'Цена:'}</td>
-                              <td style={{ padding: '4px 8px' }}>{'\u2605\u2605\u2605 7/10'}</td>
-                            </tr>
-                            <tr>
-                              <td style={{ padding: '4px 8px', fontWeight: 'bold', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px' }}>{'ИТОГО:'}</td>
-                              <td style={{ padding: '4px 8px', fontWeight: 'bold', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', color: '#e65100' }}>{'8/10 \u2014 РЕКОМЕНДУЕМ!'}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <p style={{ marginTop: '8px' }}>
-                          <strong>{'Адрес: '}</strong>{'Ferdinand Bolstraat 178, De Pijp, Amsterdam'}
-                          <br />
-                          <strong>{'Часы работы: '}</strong>{'Вт-Вс 17:00-23:00'}
-                          <br />
-                          <strong>{'Бронирование: '}</strong>{'обязательно на выходных!'}
-                        </p>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Все клиенты выходят с остекленевшим взглядом. Корейская магия?'}</p>
                       </td>
                     </tr>
                   </tbody>
                 </table>
+
+                {/* Fact 3 */}
+                <table style={{ width: '100%', border: '2px solid #ffcc80', marginBottom: '12px', background: '#fffde7' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#ffcc80', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#4e342e', padding: '6px 10px' }}>
+                        {'ФАКТ №3: ПАЛОЧКИ \u2014 ОРУЖИЕ!'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Илона лично видела, как палочками протыкают мясо насквозь!'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div style={{ textAlign: 'center', margin: '10px 0' }}>
+                  <Image src="/images/kbbq-grill.jpg" alt="Мясо на гриле" width={400} height={280} style={{ border: '3px solid #ef9a9a', borderRadius: '4px' }} />
+                  <div style={{ fontSize: '10px', color: '#888', fontStyle: 'italic', marginTop: '4px' }}>{'Фото: вулкан на столе'}</div>
+                </div>
+
+                {/* Secret formula */}
+                <table style={{ width: '100%', border: '2px solid #a5d6a7', marginBottom: '12px', background: '#e8f5e9' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#a5d6a7', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#1b5e20', padding: '6px 10px' }}>
+                        {'СЕКРЕТНАЯ ФОРМУЛА МОЛОДОСТИ'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Корейцы не стареют! Секрет в соусе или в рисе? @ilon_essa провела эксперимент: съела 2 порции \u2014 кожа стала как у 20-летней!'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* Witnesses */}
+                <table style={{ width: '100%', border: '2px solid #81d4fa', marginBottom: '12px', background: '#e1f5fe' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#81d4fa', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#01579b', padding: '6px 10px' }}>
+                        {'СВИДЕТЕЛЬСТВА ОЧЕВИДЦЕВ'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <div style={{ fontStyle: 'italic', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px dashed #81d4fa' }}>
+                          {'"После корейского барбекю я вижу сны про Сеул!" \u2014 Тётя Клава из Amstelveen'}
+                        </div>
+                        <div style={{ fontStyle: 'italic' }}>
+                          {'"Дым вызывает видения будущего!" \u2014 Петя из IT'}
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* Twitter */}
+                <div style={{ background: '#fff9c4', border: '3px dashed #d84315', padding: '12px', marginBottom: '14px', borderRadius: '4px', textAlign: 'center' }}>
+                  <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#d84315', marginBottom: '4px' }}>
+                    {'ТВИТТЕР МОЛЧИТ'}
+                  </div>
+                  <p style={{ fontSize: '13px' }}>
+                    {'Почему @ilon_essa единственная пишет правду? Заговор азиатских ресторанов или цензура алгоритмов?'}
+                  </p>
+                </div>
 
                 <div style={{ textAlign: 'center', fontSize: '11px', color: '#888', fontStyle: 'italic', borderTop: '1px dashed #ffb74d', paddingTop: '10px' }}>
                   {'Опубликовано: 09.02.2026 | Просмотров: 5 671 | Комментариев: 89'}

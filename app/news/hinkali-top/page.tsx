@@ -2,53 +2,10 @@ import Image from 'next/image'
 
 export const metadata = {
   title: 'Топ 5 хинкальных Бенелюкса - Каламбур.nl',
-  description: 'Рейтинг лучших хинкальных от Амстердама до Брюсселя. Редакция Каламбур.nl провела масштабное исследование!',
+  description: 'Олег Нижник раскрывает хинкальный скандал в Нидерландах! Рейтинг от @Odomontois.',
 }
 
 export default function HinkaliTopPage() {
-  const restaurants = [
-    {
-      rank: 1,
-      name: 'Хинкальная "У Гиви"',
-      location: 'Damrak 42, Amsterdam',
-      rating: '9.5/10',
-      color: '#ffd700',
-      review: 'Абсолютный чемпион! Хинкали сочные, тесто тонкое как бумага, бульон внутри обжигающий. Дядя Гиви лично выходит к каждому столу и спрашивает "Вкусно, да?". Цены демократичные \u2014 8 хинкали за 12 евро. Бонус: скидка 10% по коду КАЛАМБУР!',
-    },
-    {
-      rank: 2,
-      name: 'Генацвале Deluxe',
-      location: 'Rue du Marché 15, Brussels',
-      rating: '8.8/10',
-      color: '#c0c0c0',
-      review: 'Брюссельская жемчужина! Хинкали по рецепту прабабушки шеф-повара. Тесто чуть толще чем у Гиви, но начинка \u2014 божественна. Особенно хвалим хинкали с сыром сулугуни. Минус: длинная очередь по субботам.',
-    },
-    {
-      rank: 3,
-      name: 'Тбилиси на Маасе',
-      location: 'Witte de Withstraat 88, Rotterdam',
-      rating: '8.5/10',
-      color: '#cd7f32',
-      review: 'Роттердамский фаворит! Огромные порции, хинкали размером с кулак. Атмосфера \u2014 как будто попал в тбилисский дворик. Живая музыка по пятницам. Минус: иногда пересаливают.',
-    },
-    {
-      rank: 4,
-      name: 'Хинкали & Co',
-      location: 'Meir 201, Antwerp',
-      rating: '7.9/10',
-      color: '#ffcc80',
-      review: 'Антверпенский новичок, но уже завоевал сердца. Модный интерьер, хинкали с необычными начинками (креветки, трюфель!). Цены чуть выше среднего, но за качество. Для любителей экспериментов.',
-    },
-    {
-      rank: 5,
-      name: 'Мамина кухня',
-      location: 'Luxemburgstraat 7, Luxembourg City',
-      rating: '7.5/10',
-      color: '#a5d6a7',
-      review: 'Единственная хинкальная в Люксембурге! Хинкали честные, домашние, без претензий. Хозяйка Нана готовит всё сама. Порции щедрые. Минус: работает только 4 дня в неделю и закрывается в 20:00.',
-    },
-  ]
-
   return (
     <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
       {/* HEADER */}
@@ -70,63 +27,129 @@ export default function HinkaliTopPage() {
           <thead>
             <tr>
               <th style={{ background: 'linear-gradient(to bottom, #a5d6a7, #81c784)', color: '#1b5e20', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '18px', padding: '10px 14px', textAlign: 'left', borderBottom: '3px solid #388e3c' }}>
-                {'ТОП 5 ХИНКАЛЬНЫХ БЕНЕЛЮКСА'}
+                {'ТОП\u20115 ХИНКАЛКИ БЕНЕЛЮКСА! ОЛЕГ НИЖНИК РАСКРЫВАЕТ ШОК!'}
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style={{ padding: '14px', fontFamily: 'Verdana, sans-serif', fontSize: '13px', lineHeight: '1.7' }}>
-                {/* Intro */}
+                {/* Author */}
                 <div style={{ background: '#fff9c4', border: '2px dashed #a5d6a7', padding: '10px', marginBottom: '14px', borderRadius: '4px' }}>
                   <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '12px', color: '#1b5e20' }}>
-                    {'Автор: Марина, специальный корреспондент kalambur.nl'}
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#795548', fontStyle: 'italic', marginTop: '2px' }}>
-                    {'Масштабное исследование | Февраль 2026'}
+                    {'Автор: Олег Нижник (@Odomontois)'}
                   </div>
                 </div>
 
-                <p style={{ marginBottom: '10px' }}>
-                  {'Редакция Каламбур.nl провела беспрецедентное расследование: наш корреспондент Марина обошла ВСЕ хинкальные Бенелюкса за 3 недели. Было съедено 847 хинкали, выпито 23 литра ткемали и набрано 4 кг. Но результат того стоил!'}
+                {/* Intro */}
+                <div style={{ background: '#ff5252', color: '#fff', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', textAlign: 'center', padding: '8px', marginBottom: '14px', borderRadius: '4px' }}>
+                  <span className="blink">{'\u26A1 ВНИМАНИЕ! ХИНКАЛЬНЫЙ СКАНДАЛ В НИДЕРЛАНДАХ! \u26A1'}</span>
+                </div>
+
+                <p style={{ marginBottom: '12px' }}>
+                  {'Пока вы жуёте горячую собаку из FEBO, настоящий грузинский вкус прятался у вас под носом! @Odomontois объездил ВСЕ забегаловки Бенелюкса и составил рейтинг, от которого редакция в ШОКЕ!'}
                 </p>
 
                 <div style={{ textAlign: 'center', margin: '10px 0' }}>
-                  <Image src="/images/hinkali-closeup.jpg" alt="Хинкали крупным планом" width={350} height={250} style={{ border: '3px solid #a5d6a7', borderRadius: '4px' }} />
-                  <div style={{ fontSize: '10px', color: '#888', fontStyle: 'italic', marginTop: '4px' }}>{'Фото: Хинкали из "У Гиви" \u2014 абсолютный чемпион!'}</div>
+                  <Image src="/images/hinkali-closeup.jpg" alt="Хинкали" width={350} height={250} style={{ border: '3px solid #a5d6a7', borderRadius: '4px' }} />
                 </div>
 
-                {/* Restaurants */}
-                {restaurants.map((r) => (
-                  <table key={r.rank} style={{ width: '100%', border: '2px solid #81c784', marginBottom: '12px', background: '#fff' }}>
-                    <tbody>
-                      <tr>
-                        <td style={{ background: r.color, fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '15px', color: '#333', padding: '8px 12px', borderBottom: '2px solid #388e3c' }}>
-                          <span style={{ fontSize: '20px' }}>{`#${r.rank}`}</span>{` ${r.name}`}
-                          <span style={{ float: 'right', fontSize: '14px' }}>{`\u2605 ${r.rating}`}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style={{ padding: '10px 12px', fontSize: '13px' }}>
-                          <div style={{ fontSize: '11px', color: '#795548', marginBottom: '6px', fontStyle: 'italic' }}>
-                            {`\uD83D\uDCCD ${r.location}`}
-                          </div>
-                          <p>{r.review}</p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                ))}
+                {/* #1 */}
+                <table style={{ width: '100%', border: '2px solid #81c784', marginBottom: '12px', background: '#fff' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#ffd700', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '15px', color: '#333', padding: '8px 12px', borderBottom: '2px solid #388e3c' }}>
+                        <span style={{ fontSize: '20px' }}>{'#1'}</span>{' \u2014 "ГРУЗИЯ В ХААРЛЕМЕ" (Haarlem, Grote Markt 12)'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Тесто тоньше, чем обещания политиков! Секретный ингредиент из секретной грузинской горы. "Они НЕ добавляют картошку!" \u2014 шокирован @Odomontois.'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
 
-                {/* Methodology */}
-                <div style={{ background: '#e8eaf6', border: '2px solid #7986cb', padding: '10px', borderRadius: '4px', marginBottom: '14px' }}>
-                  <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '12px', color: '#283593', marginBottom: '4px' }}>
-                    {'МЕТОДОЛОГИЯ ИССЛЕДОВАНИЯ'}
-                  </div>
-                  <p style={{ fontSize: '11px' }}>
-                    {'Критерии оценки: толщина теста, сочность начинки, количество бульона внутри, размер порции, атмосфера заведения, цена/качество. Все хинкали были съедены лично корреспондентом. Ни одна хинкалина не пострадала напрасно.'}
-                  </p>
-                </div>
+                {/* #2 */}
+                <table style={{ width: '100%', border: '2px solid #81c784', marginBottom: '12px', background: '#fff' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#c0c0c0', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '15px', color: '#333', padding: '8px 12px', borderBottom: '2px solid #388e3c' }}>
+                        <span style={{ fontSize: '20px' }}>{'#2'}</span>{' \u2014 "ЛЕБЕДИНЫЙ ХИНКАЛ" (Роттердам)'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Суп так густой, что ложка стоит! Но СКАНДАЛ: в №3 нашли человеческий волос (не наш).'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* #3 */}
+                <table style={{ width: '100%', border: '2px solid #81c784', marginBottom: '12px', background: '#fff' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#cd7f32', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '15px', color: '#333', padding: '8px 12px', borderBottom: '2px solid #388e3c' }}>
+                        <span style={{ fontSize: '20px' }}>{'#3'}</span>{' \u2014 "ТБИЛИСИ В АМСТЕРДАМЕ" (Jordaan)'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Борщ вместо супа! Заговор или просто повар перепутал рецепты?'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* #4 */}
+                <table style={{ width: '100%', border: '2px solid #81c784', marginBottom: '12px', background: '#fff' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#ffcc80', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '15px', color: '#333', padding: '8px 12px', borderBottom: '2px solid #388e3c' }}>
+                        <span style={{ fontSize: '20px' }}>{'#4'}</span>{' \u2014 "КАВКАЗСКИЙ ДОМ" (Утрехт)'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Хинкали летают к столу! Олег лично заснял полёт на видео.'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* #5 */}
+                <table style={{ width: '100%', border: '2px solid #81c784', marginBottom: '12px', background: '#fff' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#a5d6a7', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '15px', color: '#333', padding: '8px 12px', borderBottom: '2px solid #388e3c' }}>
+                        <span style={{ fontSize: '20px' }}>{'#5'}</span>{' \u2014 "СТАРАЯ ГРУЗИЯ" (Антверпен)'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p>{'Слабовато, но дешево. Идеально для студентов.'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* Conspiracy */}
+                <table style={{ width: '100%', border: '2px solid #ef9a9a', marginBottom: '12px', background: '#fce4ec' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#ef9a9a', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#b71c1c', padding: '6px 10px' }}>
+                        {'КОНСПИРАЦИЯ ГРУЗИНСКИХ ПОВАРОВ'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p style={{ marginBottom: '8px' }}>{'Почему лучшие хинкали прячут рецепты? @Odomontois утверждает: "Они охраняют древнюю магию Кавказа от голландцев!"'}</p>
+                        <p style={{ fontStyle: 'italic' }}>{'Бабушка Нина из Тбилиси (живёт в Den Haag): "Настоящий хинкали делают с молитвой, а не с шаурмой!"'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
 
                 <div style={{ textAlign: 'center', fontSize: '11px', color: '#888', fontStyle: 'italic', borderTop: '1px dashed #a5d6a7', paddingTop: '10px' }}>
                   {'Опубликовано: 08.02.2026 | Просмотров: 8 432 | Комментариев: 156'}

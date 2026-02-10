@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 export const metadata = {
-  title: 'Верка Сердючка едет в Амстердам! - Каламбур.nl',
-  description: 'СЕНСАЦИЯ! Верка Сердючка подтвердила концерт в Амстердаме 15 марта в Paradiso!',
+  title: 'Верка Сердючка в Амстердаме! Грандиозный заговор! - Каламбур.nl',
+  description: 'СЕНСАЦИЯ! Верка Сердючка прилетает в Амстердам! Простые гастроли или часть глобального плана?',
 }
 
 export default function VerkkAmsterdamPage() {
@@ -27,137 +27,134 @@ export default function VerkkAmsterdamPage() {
           <thead>
             <tr>
               <th style={{ background: 'linear-gradient(to bottom, #ce93d8, #ba68c8)', color: '#fff', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '18px', padding: '10px 14px', textAlign: 'left', borderBottom: '3px solid #8e24aa' }}>
-                {'\u2605 В АМСТЕРДАМ ЕДЕТ ВЕРКА СЕРДЮЧКА! \u2605'}
+                {'\u2605 ВЕРКА СЕРДЮЧКА В АМСТЕРДАМЕ! ГРАНДИОЗНЫЙ ЗАГОВОР! \u2605'}
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style={{ padding: '14px', fontFamily: 'Verdana, sans-serif', fontSize: '13px', lineHeight: '1.7' }}>
+                {/* Author */}
+                <div style={{ background: '#fff9c4', border: '2px dashed #ce93d8', padding: '10px', marginBottom: '14px', borderRadius: '4px' }}>
+                  <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '12px', color: '#8e24aa' }}>
+                    {'Автор: Редакция каламбур.nl'}
+                  </div>
+                </div>
+
                 {/* Breaking news banner */}
                 <div style={{ background: '#ff5252', color: '#fff', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '16px', textAlign: 'center', padding: '8px', marginBottom: '14px', borderRadius: '4px' }}>
-                  <span className="blink">{'\u26A1 СЕНСАЦИЯ! \u26A1 ЭКСКЛЮЗИВ КАЛАМБУР.NL \u26A1'}</span>
+                  <span className="blink">{'\u26A1 СЕНСАЦИЯ МИРОВОГО МАСШТАБА! \u26A1'}</span>
                 </div>
 
                 <div style={{ textAlign: 'center', margin: '10px 0' }}>
-                  <Image src="/images/serduchka-concert.jpg" alt="Концертный зал" width={400} height={280} style={{ border: '3px solid #ce93d8', borderRadius: '4px' }} />
+                  <Image src="/images/serduchka-concert.jpg" alt="Концерт Верки Сердючки" width={400} height={280} style={{ border: '3px solid #ce93d8', borderRadius: '4px' }} />
                 </div>
 
                 <p style={{ marginBottom: '10px', fontWeight: 'bold', fontSize: '14px', color: '#8e24aa' }}>
-                  {'Андрей Данилко (он же ВЕРКА СЕРДЮЧКА) подтвердил грандиозное шоу в Амстердаме! Дата, от которой вся русскоязычная община Нидерландов сошла с ума: 15 МАРТА 2026 ГОДА!'}
+                  {'ВЕРКА СЕРДЮЧКА ПРИЛЕТАЕТ В АМСТЕРДАМ! Но зачем? Простые гастроли или часть глобального плана?'}
                 </p>
 
-                {/* Event details */}
-                <table style={{ width: '100%', border: '2px solid #ce93d8', marginBottom: '12px', background: '#fff' }}>
+                {/* Shocking facts */}
+                <table style={{ width: '100%', border: '2px solid #ef9a9a', marginBottom: '12px', background: '#fce4ec' }}>
                   <tbody>
                     <tr>
-                      <td style={{ background: '#e1bee7', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', color: '#4a148c', padding: '8px 12px', textAlign: 'center' }}>
-                        {'ДЕТАЛИ МЕРОПРИЯТИЯ'}
+                      <td style={{ background: '#ef9a9a', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#b71c1c', padding: '6px 10px' }}>
+                        {'ФАКТЫ, КОТОРЫЕ ПОТРЯСУТ ВАС:'}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '12px' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-                          <tbody>
-                            <tr style={{ borderBottom: '1px dashed #ce93d8' }}>
-                              <td style={{ padding: '6px 8px', fontWeight: 'bold', width: '120px' }}>{'\uD83D\uDCC5 Дата:'}</td>
-                              <td style={{ padding: '6px 8px', fontFamily: "'Arial Black', Arial, sans-serif", color: '#8e24aa' }}>{'15 марта 2026 (суббота)'}</td>
-                            </tr>
-                            <tr style={{ borderBottom: '1px dashed #ce93d8' }}>
-                              <td style={{ padding: '6px 8px', fontWeight: 'bold' }}>{'\uD83D\uDD52 Время:'}</td>
-                              <td style={{ padding: '6px 8px' }}>{'Двери: 19:00 | Начало: 20:00'}</td>
-                            </tr>
-                            <tr style={{ borderBottom: '1px dashed #ce93d8' }}>
-                              <td style={{ padding: '6px 8px', fontWeight: 'bold' }}>{'\uD83D\uDCCD Место:'}</td>
-                              <td style={{ padding: '6px 8px' }}>{'Paradiso, Weteringschans 6-8, Amsterdam'}</td>
-                            </tr>
-                            <tr>
-                              <td style={{ padding: '6px 8px', fontWeight: 'bold' }}>{'\uD83C\uDFAB Билеты:'}</td>
-                              <td style={{ padding: '6px 8px' }}>{'от 45 до 120 евро'}</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <div style={{ marginBottom: '6px' }}>{'1. Верка заказала костюм цвета голландского флага!'}</div>
+                        <div style={{ marginBottom: '6px' }}>{'2. Репетирует "Hop hop hop" на DAM Square!'}</div>
+                        <div>{'3. Встречается с тайными агентами в coffeeshop!'}</div>
                       </td>
                     </tr>
                   </tbody>
                 </table>
 
-                {/* Program */}
+                {/* Twitter */}
+                <table style={{ width: '100%', border: '2px solid #81d4fa', marginBottom: '12px', background: '#e1f5fe' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#81d4fa', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#01579b', padding: '6px 10px' }}>
+                        {'ТВИТТЕР ВЗОРВАЛСЯ (ну почти):'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <div style={{ fontStyle: 'italic', marginBottom: '6px' }}>{'@spnlck: "Это отвлекающий манёвр!"'}</div>
+                        <div style={{ fontStyle: 'italic' }}>{'@Odomontois: "Грузины тоже готовят сюрприз!"'}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* Eyewitnesses */}
+                <table style={{ width: '100%', border: '2px solid #a5d6a7', marginBottom: '12px', background: '#e8f5e9' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#a5d6a7', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#1b5e20', padding: '6px 10px' }}>
+                        {'ГЛАЗАМИ ОЧЕВИДЦЕВ'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <div style={{ fontStyle: 'italic', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px dashed #a5d6a7' }}>
+                          {'Бабушка Рая из Amstelveen: "Я видела её в Albert Heijn! Покупала Dutchie печенье!"'}
+                        </div>
+                        <div style={{ fontStyle: 'italic' }}>
+                          {'Таксист Саша: "Вез её из аэропорта Schiphol \u2014 пела nonstop!"'}
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* Conspiracy */}
                 <table style={{ width: '100%', border: '2px solid #ffcc80', marginBottom: '12px', background: '#fffde7' }}>
                   <tbody>
                     <tr>
                       <td style={{ background: '#ffcc80', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#4e342e', padding: '6px 10px' }}>
-                        {'\uD83C\uDFB5 ЧТО ОЖИДАЕТСЯ'}
+                        {'КОНСПИРОЛОГИЧЕСКАЯ ВЕРСИЯ'}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '10px' }}>
+                      <td style={{ padding: '10px 12px', fontSize: '13px' }}>
+                        <p style={{ marginBottom: '8px' }}>{'Верка \u2014 агент украинской разведки? Или просто соскучилась по stroopwafel?'}</p>
+                        <p>{'Почему полиция усилила патрули на Red Light District?'}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* What to expect */}
+                <table style={{ width: '100%', border: '2px solid #ce93d8', marginBottom: '12px', background: '#fff' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ background: '#e1bee7', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '14px', color: '#4a148c', padding: '8px 12px', textAlign: 'center' }}>
+                        {'ЧТО ЖДАТЬ АМСТЕРДАМЦАМ?'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px' }}>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
-                          <li style={{ padding: '4px 0' }}>{'\u2605 "Всё будет хорошо!" \u2014 гимн всех вечеринок'}</li>
-                          <li style={{ padding: '4px 0' }}>{'\u2605 "Dolce & Gabbana" (та самая "ла-ла-ла")'}</li>
-                          <li style={{ padding: '4px 0' }}>{'\u2605 "Dancing Lasha Tumbai" \u2014 евровизийный хит'}</li>
-                          <li style={{ padding: '4px 0' }}>{'\u2605 НОВЫЕ ПЕСНИ из нового альбома 2026!'}</li>
-                          <li style={{ padding: '4px 0' }}>{'\u2605 Знаменитые танцы и смена костюмов (до 7 нарядов за вечер!)'}</li>
-                          <li style={{ padding: '4px 0' }}>{'\u2605 Интерактив с залом \u2014 Верка выбирает "жертву" из публики!'}</li>
+                          <li style={{ padding: '4px 0' }}>{'\u2605 Концерт на плавучем рынке?'}</li>
+                          <li style={{ padding: '4px 0' }}>{'\u2605 Дуэт с местными рэперами?'}</li>
+                          <li style={{ padding: '4px 0' }}>{'\u2605 Секретный перформанс в Vondelpark?'}</li>
                         </ul>
                       </td>
                     </tr>
                   </tbody>
                 </table>
 
-                {/* Why this is important */}
-                <table style={{ width: '100%', border: '2px solid #ef9a9a', marginBottom: '12px', background: '#fce4ec' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ background: '#ef9a9a', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#b71c1c', padding: '6px 10px' }}>
-                        {'ПОЧЕМУ ЭТО ВАЖНО'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '10px' }}>
-                        <p style={{ marginBottom: '8px' }}>
-                          {'Последний раз Верка Сердючка выступала в Нидерландах аж в 2019 году! С тех пор русскоязычная община Амстердама, Роттердама и Гааги ждала этого момента с нетерпением.'}
-                        </p>
-                        <p>
-                          {'"Это будет БОМБА!" \u2014 прокомментировал организатор мероприятия. \u2014 "Paradiso уже почти распродан. Кто не купит билеты сейчас \u2014 будет кусать локти!"'}
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                {/* Final shout */}
+                <div style={{ background: '#ff5252', color: '#fff', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '20px', textAlign: 'center', padding: '12px', marginBottom: '14px', borderRadius: '4px' }}>
+                  <span className="blink">{'НЕ ПУПС! ВЕРКА СЕРДЮЧКА!'}</span>
+                </div>
 
-                {/* Reactions */}
-                <table style={{ width: '100%', border: '2px solid #a5d6a7', marginBottom: '12px', background: '#e8f5e9' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ background: '#a5d6a7', fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#1b5e20', padding: '6px 10px' }}>
-                        {'РЕАКЦИИ ЧИТАТЕЛЕЙ КАЛАМБУР.NL'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '10px' }}>
-                        <div style={{ fontStyle: 'italic', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px dashed #a5d6a7' }}>
-                          {'"Наконец-то!!! Уже купила 4 билета \u2014 на себя, мужа, свекровь и кота!" \u2014 ОльгаNL_2003, Амстердам'}
-                        </div>
-                        <div style={{ fontStyle: 'italic', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px dashed #a5d6a7' }}>
-                          {'"Я специально возьму отпуск ради этого концерта. Еду из Маастрихта!" \u2014 Sergey_BBQ, Маастрихт'}
-                        </div>
-                        <div style={{ fontStyle: 'italic' }}>
-                          {'"Верка \u2014 это не просто концерт, это ТЕРАПИЯ! После последнего шоу я неделю ходила с улыбкой." \u2014 ЛенОк_87, Роттердам'}
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                {/* Ticket warning */}
-                <div style={{ background: '#fff9c4', border: '3px dashed #d84315', padding: '12px', marginBottom: '14px', borderRadius: '4px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '16px', color: '#d84315', marginBottom: '4px' }}>
-                    <span className="blink">{'\u26A0 ВНИМАНИЕ! \u26A0'}</span>
-                  </div>
-                  <p style={{ fontSize: '13px' }}>
-                    {'Билеты раскупают ОЧЕНЬ быстро! Не покупайте с рук \u2014 только через официальный сайт Paradiso. Редакция kalambur.nl не несёт ответственности за поддельные билеты!'}
-                  </p>
+                <div style={{ textAlign: 'center', margin: '10px 0' }}>
+                  <Image src="/images/serduchka.jpg" alt="Верка Сердючка" width={300} height={220} style={{ border: '3px solid #ce93d8', borderRadius: '4px' }} />
+                  <div style={{ fontSize: '10px', color: '#888', fontStyle: 'italic', marginTop: '4px' }}>{'Фото: Верка в костюме с тюльпанами'}</div>
                 </div>
 
                 <div style={{ textAlign: 'center', fontSize: '11px', color: '#888', fontStyle: 'italic', borderTop: '1px dashed #ce93d8', paddingTop: '10px' }}>
