@@ -60,6 +60,13 @@ export default function VotePage() {
         </div>
       </header>
 
+      {/* BACK LINK */}
+      <div style={{ padding: '8px 12px', background: 'linear-gradient(to bottom, #ffb74d, #ffa726)', borderBottom: '2px solid #e65100' }}>
+        <a href="/" style={{ fontFamily: "'Arial Black', Arial, sans-serif", fontSize: '13px', color: '#4e342e', textDecoration: 'none' }}>
+          {'\u2190 Назад к новостям'}
+        </a>
+      </div>
+
       <div style={{ padding: '16px' }}>
         <div className="retro-panel">
           <div className="retro-panel-header" style={{ fontSize: '16px', padding: '10px 14px' }}>

@@ -79,42 +79,89 @@ a:hover {
   vertical-align: top;
 }
 
-/* Calendar table */
+/* Calendar table - fixed 30x30 cells */
 .calendar-table {
   width: 100%;
+  max-width: 220px;
+  table-layout: fixed;
   border-collapse: collapse;
   border: 2px solid #ffb74d;
-  font-size: 11px;
+  font-size: 12px;
   background: #fff;
 }
 
 .calendar-table th {
   background: #ffcc80;
-  padding: 4px;
+  padding: 2px 1px;
   font-family: Verdana, sans-serif;
-  font-size: 10px;
+  font-size: 9px;
   color: #4e342e;
-  border: 1px solid #ffb74d;
+  border: 1px solid #ccc;
+  text-align: center;
+  height: 20px;
 }
 
 .calendar-table td {
-  padding: 3px 4px;
-  border: 1px solid #ffe0b2;
+  padding: 0;
+  border: 1px solid #ccc;
   text-align: center;
-  height: 40px;
-  vertical-align: top;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
   font-family: Verdana, sans-serif;
+  font-size: 12px;
 }
 
-.calendar-table td.highlight {
-  background: #fff9c4;
+/* Event cell with CSS tooltip */
+.cal-event-cell {
+  position: relative;
 }
 
-.calendar-table td.highlight span {
-  display: block;
-  font-size: 8px;
-  color: #d84315;
-  font-weight: bold;
+.cal-event-cell::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 10px;
+  font-family: Verdana, sans-serif;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.cal-event-cell:hover::after {
+  opacity: 1;
+}
+
+/* Weather header widget - button style, orange bg, Arial Black 16px */
+.weather-header-widget {
+  background: linear-gradient(to bottom, #ff9800, #e65100);
+  border: 3px outset #ffb74d;
+  border-radius: 6px;
+  padding: 6px 8px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Moon phase widget - blinking border, starry retro style */
+@keyframes moon-border-blink {
+  0%, 100% { border-color: #283593; }
+  50% { border-color: #7986cb; }
+}
+
+.moon-widget {
+  background: linear-gradient(to bottom, #e8eaf6, #c5cae9);
+  border: 3px double #3f51b5;
+  border-radius: 6px;
+  padding: 8px 6px;
+  box-shadow: inset 0 0 10px rgba(63,81,181,0.15), 2px 2px 6px rgba(0,0,0,0.1);
+  animation: moon-border-blink 1.5s ease-in-out infinite;
 }
 
 /* Marquee styling */
@@ -139,13 +186,14 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Header banner */
+/* Header banner - taller to accommodate widgets */
 .site-header {
   background: linear-gradient(to bottom, #ffe0b2, #ffcc80);
   border-bottom: 3px solid #ffb74d;
   text-align: center;
-  padding: 12px 10px 8px;
+  padding: 10px 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-height: 120px;
 }
 
 .site-header h1 {
